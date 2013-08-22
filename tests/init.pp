@@ -1,0 +1,10 @@
+include dovecot
+include dovecot::ssl
+include dovecot::sieve
+include dovecot::master
+#include dovecot::postgres
+include dovecot::mail
+include dovecot::lda
+include dovecot::imap
+include dovecot::base
+include dovecot::auth

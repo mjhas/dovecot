@@ -1,0 +1,13 @@
+{
+  "name": "mjhas-dovecot",
+  "version": "0.0.1",
+  "summary": "",
+  "author": "mjhas",
+  "description": "This Dovecot Module installs Dovecot-IMAPD and configures it using Augeas",
+  "dependencies": [],
+  "types": [],
+  "checksums": {},
+  "source": "https://github.com/mjhas/dovecot.git",
+  "project_page": "https://github.com/mjhas/dovecot",
+  "license": "Apache License 2.0"
+}
