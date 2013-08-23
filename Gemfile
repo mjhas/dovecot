@@ -6,6 +6,7 @@ group :development, :test do
   gem 'rspec-system-puppet', '~>2.0'
   gem 'puppet-lint', '~> 0.3.2'
   gem 'rspec-puppet-augeas', '~> 0.2.3'
+  gem 'ruby-augeas', '~> 0.5.0'
 end
 
 if puppetversion = ENV['PUPPET_GEM_VERSION']

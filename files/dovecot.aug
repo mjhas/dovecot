@@ -68,7 +68,7 @@ let block_args = Sep.space . store /([A-Za-z0-9\/\\_-]+|\"[A-Za-z0-9 ]*\")/
 let commands = /include|include_try/
 
 (* Variable: block_names *)
-let block_names = /mailbox|dict|userdb|passdb|protocol|service|plugin|namespace|map|fields|unix_listener|fifo_listener|inet_listener/
+let block_names = /dict|userdb|passdb|protocol|service|plugin|namespace|map|fields|unix_listener|fifo_listener|inet_listener/
 
 (* Variable: keys 
 Match any possible key except commands and block names. *)
@@ -82,11 +82,14 @@ let entry = [ indent . key keys. eq . (Sep.opt_space . store value)? . eol ]
 Map commands started with "!". *)
 let command = [ command_start . key commands . Sep.space . store Rx.fspath . eol ]
 
+let rec mailbox = [ indent . key /mailbox/ . block_args? . Build.block_newlines (entry) comment . eol ]
+
 (* View: block
 Map block enclosed in brackets recursively. 
 Block may be indented and have optional argument.
 Block body may have entries, comments, empty lines, and nested blocks recursively. *)
-let rec block = [ indent . key block_names . block_args? . Build.block_newlines (entry|block) comment . eol ]
+let rec block = [ indent . key block_names . block_args? . Build.block_newlines (entry|block|mailbox) comment . eol ]
+
 
 (******************************************************************
  * Group:                   LENS AND FILTER
@@ -102,4 +105,3 @@ let filter = incl "/etc/dovecot/dovecot.conf"
            . Util.stdexcl
 
 let xfm = transform lns filter
-
