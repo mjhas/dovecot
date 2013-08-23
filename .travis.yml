@@ -1,9 +1,9 @@
 install:
   - sudo apt-get update
-  - sudo apt-get install libxml2-dev libreadline-dev valgrind augeas-lenses
+  - sudo apt-get install libxml2-dev libreadline-dev augeas-lenses libaugeas-dev libaugeas-dev
 language: ruby
 bundler_args: --without development
-script: "bundle exec rake spec SPEC_OPTS='--format documentation'"
+script: "bundle install && bundle exec rake spec SPEC_OPTS='--format documentation'"
 rvm:
   - 1.8.7
 env:
