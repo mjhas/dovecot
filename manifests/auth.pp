@@ -3,7 +3,7 @@ class dovecot::auth (
   $auth_mechanisms        = 'plain login',
 ) {
   include dovecot
-  
+
   dovecot::config::dovecotcfmulti { 'auth':
     config_file => 'conf.d/10-auth.conf',
     changes     => [

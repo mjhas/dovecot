@@ -9,7 +9,7 @@ class dovecot::mail (
   $mailplugins   = 'quota',
 ) {
   include dovecot
-    
+
   dovecot::config::dovecotcfmulti { 'mail':
     config_file => 'conf.d/10-mail.conf',
     changes     => [

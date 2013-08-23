@@ -9,7 +9,7 @@ class dovecot::master (
   $postfix_path      = '/var/spool/postfix/private/auth',
 ) {
   include dovecot
-  
+
   if $postfix == true {
     dovecot::config::dovecotcfmulti { '/etc/dovecot/conf.d/10-master.conf-postixlistener0':
       config_file => 'conf.d/10-master.conf',

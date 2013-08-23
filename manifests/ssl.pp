@@ -1,11 +1,11 @@
 class dovecot::ssl (
-  $ssl = 'no', 
+  $ssl = 'no',
   $ssl_certfile = undef,
   $ssl_keyfile = undef,
   $ssl_ca = undef,
 ) {
-  include dovecot 
-  
+  include dovecot
+
   dovecot::config::dovecotcfsingle { 'ssl':
     config_file => 'conf.d/10-ssl.conf',
     value       => $ssl,
@@ -24,8 +24,8 @@ class dovecot::ssl (
       }
     } else {
       dovecot::config::dovecotcfsingle { 'ssl_ca':
-        config_file => 'conf.d/10-ssl.conf',
         ensure      => absent,
+        config_file => 'conf.d/10-ssl.conf',
       }
     }
 

@@ -1,15 +1,15 @@
 class dovecot::sieve (
-  $username  = 'vmail', 
+  $username  = 'vmail',
   $groupname = 'vmail',
 ) {
   include dovecot
-  
+
   file { '/var/lib/dovecot/sieve':
     ensure  => directory,
     owner   => $username,
     group   => $groupname,
-    mode    => 755,
-    require => Package['dovecot-sieve']
+    mode    => '0755',
+    require => Package['dovecot-sieve'],
   }
   package {'dovecot-sieve':
       ensure => installed,

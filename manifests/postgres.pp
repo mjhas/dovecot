@@ -6,14 +6,14 @@ class dovecot::postgres (
   $mailstorepath='/srv/vmail/'
 ) {
   file { "/etc/dovecot/dovecot-sql.conf.ext":
-    content => template('dovecot/dovecot-sql.conf.ext'),
     ensure  => present,
-    mode    => 600,
+    content => template('dovecot/dovecot-sql.conf.ext'),
+    mode    => '0600',
     owner   => root,
     group   => dovecot,
     require => Package['dovecot-pgsql'],
   }
-  
+
   package {'dovecot-pgsql':
     ensure => installed,
     notify => Class['dovecot']

@@ -9,7 +9,7 @@ define dovecot::config::dovecotcfmulti(
     notify  => Class['dovecot'],
   }
 
-  augeas { "dovecot /etc/dovecot/${config_file} ${name}": 
+  augeas { "dovecot /etc/dovecot/${config_file} ${name}":
     changes => $changes,
     onlyif  => $onlyif,
   }

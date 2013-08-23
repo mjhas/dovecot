@@ -24,6 +24,9 @@ define dovecot::config::dovecotcfsingle(
         changes => "rm $name",
       }
     }
+    default : {
+      notice('unknown ensure value use absent or present')
+    }
   }
 }
 
