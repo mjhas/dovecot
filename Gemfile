@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 group :development, :test do
   gem 'rake'
+  gem 'facter', '~> 1.6.10'
   gem 'puppetlabs_spec_helper', :require => false
   gem 'rspec-system-puppet', '~>2.0'
   gem 'puppet-lint', '~> 0.3.2'

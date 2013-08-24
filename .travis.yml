@@ -4,6 +4,8 @@ install:
   - sudo cp -R $TRAVIS_BUILD_DIR/spec/fixtures/augeas/etc/dovecot /etc/
   - sudo cp $TRAVIS_BUILD_DIR/spec/fixtures/augeas/etc/init.d/dovecot /etc/init.d/
   - sudo cp files/* /usr/share/augeas/lenses/dist/
+  - sudo mkdir /var/lib/dovecot/
+  - sudo groupadd dovecot
 language: ruby
 bundler_args: --without development
 script: "sudo -E bash -c \"PATH=$PATH; echo $PATH && bundle install && bundle exec rake spec SPEC_OPTS='--format documentation' && puppet apply --modulepath=`dirname $TRAVIS_BUILD_DIR` --noop tests/init.pp\""
