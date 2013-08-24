@@ -1,5 +1,5 @@
 class dovecot::config::augeas {
-  file { "/usr/share/augeas/lenses/dist/dovecot.aug":
+  file { '/usr/share/augeas/lenses/dist/dovecot.aug':
     ensure => present,
     source => 'puppet:///modules/dovecot/dovecot.aug',
     owner  => root,
@@ -7,7 +7,7 @@ class dovecot::config::augeas {
     mode   => '0644'
   }
 
-  file { "/usr/share/augeas/lenses/dist/build.aug":
+  file { '/usr/share/augeas/lenses/dist/build.aug':
     ensure => present,
     source => 'puppet:///modules/dovecot/build.aug',
     owner  => root,
@@ -15,7 +15,7 @@ class dovecot::config::augeas {
     mode   => '0644'
   }
 
-  file { "/usr/share/augeas/lenses/dist/util.aug":
+  file { '/usr/share/augeas/lenses/dist/util.aug':
     ensure => present,
     source => 'puppet:///modules/dovecot/util.aug',
     owner  => root,

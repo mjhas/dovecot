@@ -17,7 +17,7 @@ class dovecot::postgres (
 
   package {'dovecot-pgsql':
     ensure => installed,
-    before  => Exec['dovecot'],
+    before => Exec['dovecot'],
     notify => Service['dovecot']
   }
 

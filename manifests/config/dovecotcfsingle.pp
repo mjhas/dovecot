@@ -16,13 +16,13 @@ define dovecot::config::dovecotcfsingle(
         fail("dovecot /etc/dovecot/${config_file} ${name} value not set")
       }
       augeas { "dovecot /etc/dovecot/${config_file} ${name}":
-        changes => "set $name '$value'",
+        changes => "set ${name} '${value}'",
       }
     }
 
     absent: {
       augeas { "dovecot /etc/dovecot/${config_file} ${name}":
-        changes => "rm $name",
+        changes => "rm ${name}",
       }
     }
     default : {
