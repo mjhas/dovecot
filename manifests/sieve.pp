@@ -12,7 +12,9 @@ class dovecot::sieve (
     require => Package['dovecot-sieve'],
   }
   package {'dovecot-sieve':
-      ensure => installed,
+      ensure  => installed,
+      before  => Exec['dovecot'],
+      require => Package['dovecot'],
   }
 
   dovecot::config::dovecotcfmulti { 'plugin':

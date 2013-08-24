@@ -3,10 +3,11 @@ define dovecot::config::dovecotcfmulti(
   $changes=undef,
   $onlyif=undef,
 ) {
-  include dovecot::config::augeas
+  require dovecot::config::augeas
   Augeas {
     context => "/files/etc/dovecot/${config_file}",
     notify  => Service['dovecot'],
+    require => Exec['dovecot'],
   }
 
   augeas { "dovecot /etc/dovecot/${config_file} ${name}":
