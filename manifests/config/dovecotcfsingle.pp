@@ -7,6 +7,7 @@ define dovecot::config::dovecotcfsingle(
   Augeas {
     context => "/files/etc/dovecot/${config_file}",
     notify  => Service['dovecot'],
+    require => Exec['dovecot'],
   }
 
   case $ensure {

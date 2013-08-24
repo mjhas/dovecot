@@ -2,7 +2,11 @@ include dovecot
 include dovecot::ssl
 include dovecot::sieve
 include dovecot::master
-#include dovecot::postgres
+class { 'dovecot::postgres':
+  dbname      => 'dbname',
+  $dbpassword => 'dbpassword',
+  $dbusername => 'dbusername',
+}
 include dovecot::mail
 include dovecot::lda
 include dovecot::imap
