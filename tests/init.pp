@@ -4,8 +4,8 @@ include dovecot::sieve
 include dovecot::master
 class { 'dovecot::postgres':
   dbname      => 'dbname',
-  $dbpassword => 'dbpassword',
-  $dbusername => 'dbusername',
+  dbpassword => 'dbpassword',
+  dbusername => 'dbusername',
 }
 include dovecot::mail
 include dovecot::lda
