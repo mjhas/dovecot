@@ -1,10 +1,12 @@
 install:
   - sudo apt-get update
-  - sudo apt-get install libxml2-dev libreadline-dev augeas-lenses libaugeas-dev libaugeas-dev
+  - sudo apt-get install puppet libxml2-dev libreadline-dev augeas-lenses libaugeas-dev 
   - sudo cp -R $TRAVIS_BUILD_DIR/spec/fixtures/augeas/etc/dovecot /etc/
+  - sudo cp $TRAVIS_BUILD_DIR/spec/fixtures/augeas/etc/init.d/dovecot /etc/init.d/
+  - sudo cp files/* /usr/share/augeas/lenses/dist/
 language: ruby
 bundler_args: --without development
-script: "bundle install && bundle exec rake spec SPEC_OPTS='--format documentation' && puppet apply --modulepath=`dirname $TRAVIS_BUILD_DIR` --noop tests/init.pp"
+script: "sudo -E bash -c \"PATH=$PATH; echo $PATH && bundle install && bundle exec rake spec SPEC_OPTS='--format documentation' && puppet apply --modulepath=`dirname $TRAVIS_BUILD_DIR` --noop tests/init.pp\""
 rvm:
   - 1.8.7
 env:
