@@ -3,10 +3,10 @@ define dovecot::config::dovecotcfsingle(
   $config_file='dovecot.conf',
   $value=undef,
 ) {
-  include dovecot::config::augeas
+  require dovecot::config::augeas
   Augeas {
     context => "/files/etc/dovecot/${config_file}",
-    notify  => Class['dovecot'],
+    notify  => Service['dovecot'],
   }
 
   case $ensure {

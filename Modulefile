@@ -1,5 +1,5 @@
 name    'mjhas-dovecot'
-version '0.0.2'
+version '0.0.3'
 source ''
 author 'mjhas'
 license 'Apache License 2.0'
