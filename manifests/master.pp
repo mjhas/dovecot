@@ -11,18 +11,19 @@ class dovecot::master (
   include dovecot
 
   if $postfix == true {
-    dovecot::config::dovecotcfmulti { '/etc/dovecot/conf.d/10-master.conf-postixlistener0':
+    dovecot::config::dovecotcfmulti { '/etc/dovecot/conf.d/10-master.conf-postfixlistener0':
       config_file => 'conf.d/10-master.conf',
       onlyif      => "match service[ . = \"auth\"]/unix_listener[ . = \"${postfix_path}\"] size == 0 ",
       changes     => [
-        "set service[ . = \"auth\"]/unix_listener[last()+1] \"${postfix_path}\"",
+        "ins unix_listener after service[ . = \"auth\"]/unix_listener[last()]",
+        "set service[ . = \"auth\"]/unix_listener[last()] \"${postfix_path}\"",
         "set service[ . = \"auth\"]/unix_listener[ . = \"${postfix_path}\"]/mode \"${postfix_mod}\"",
         "set service[ . = \"auth\"]/unix_listener[ . = \"${postfix_path}\"]/user \"${postfix_username}\"",
         "set service[ . = \"auth\"]/unix_listener[ . = \"${postfix_path}\"]/group \"${postfix_groupname}\"",
         ],
     }
 
-    dovecot::config::dovecotcfmulti { '/etc/dovecot/conf.d/10-master.conf-postixlistener1':
+    dovecot::config::dovecotcfmulti { '/etc/dovecot/conf.d/10-master.conf-postfixlistener1':
       config_file => 'conf.d/10-master.conf',
       onlyif      => "match service[ . = \"auth\"]/unix_listener[ . = \"${postfix_path}\"] size == 1 ",
       changes     => [
@@ -30,7 +31,7 @@ class dovecot::master (
         "set service[ . = \"auth\"]/unix_listener[ . = \"${postfix_path}\"]/user \"${postfix_username}\"",
         "set service[ . = \"auth\"]/unix_listener[ . = \"${postfix_path}\"]/group \"${postfix_groupname}\"",
         ],
-      require     => Dovecot::Config::Dovecotcfmulti['/etc/dovecot/conf.d/10-master.conf-postixlistener0'],
+      require     => Dovecot::Config::Dovecotcfmulti['/etc/dovecot/conf.d/10-master.conf-postfixlistener0'],
       before      => Dovecot::Config::Dovecotcfmulti['/etc/dovecot/conf.d/10-master.conf-userdblistener0'],
     }
   }
@@ -39,7 +40,8 @@ class dovecot::master (
     config_file => 'conf.d/10-master.conf',
     onlyif      => 'match service[ . = "auth"]/unix_listener[ . = "auth-userdb"] size == 0 ',
     changes     => [
-      'set service[ . = "auth"]/unix_listener[last()+1] "auth-userdb"',
+      "ins unix_listener after service[ . = \"auth\"]/unix_listener[last()]",
+      'set service[ . = "auth"]/unix_listener[last()] "auth-userdb"',
       "set service[ . = \"auth\"]/unix_listener[ . = \"auth-userdb\"]/mode \"${mod}\"",
       "set service[ . = \"auth\"]/unix_listener[ . = \"auth-userdb\"]/user \"${username}\"",
       "set service[ . = \"auth\"]/unix_listener[ . = \"auth-userdb\"]/group \"${groupname}\"",
@@ -60,8 +62,6 @@ class dovecot::master (
   dovecot::config::dovecotcfmulti { 'master':
     config_file => 'conf.d/10-master.conf',
     changes     => ['set service[ . = "auth-worker"]/user $default_internal_user',],
-    require     => [
-      File['/usr/share/augeas/lenses/dist/dovecot.aug'],
-      Dovecot::Config::Dovecotcfmulti['/etc/dovecot/conf.d/10-master.conf-userdblistener1']]
+    require     => Dovecot::Config::Dovecotcfmulti['/etc/dovecot/conf.d/10-master.conf-userdblistener1']
   }
 }

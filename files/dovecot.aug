@@ -84,11 +84,17 @@ let command = [ command_start . key commands . Sep.space . store Rx.fspath . eol
 
 let rec mailbox = [ indent . key /mailbox/ . block_args? . Build.block_newlines (entry) comment . eol ]
 
+let block_newlines (entry:lens) (comment:lens) =
+      let indent = del Rx.opt_space "\t"
+   in del Build.block_ldelim_newlines_re Build.block_ldelim_default
+ . ((entry | comment) . (Util.empty | entry | comment)*)?
+ . del Build.block_rdelim_newlines_re Build.block_rdelim_newlines_default
+
 (* View: block
 Map block enclosed in brackets recursively. 
 Block may be indented and have optional argument.
 Block body may have entries, comments, empty lines, and nested blocks recursively. *)
-let rec block = [ indent . key block_names . block_args? . Build.block_newlines (entry|block|mailbox) comment . eol ]
+let rec block = [ indent . key block_names . block_args? . block_newlines (entry|block|mailbox) comment . eol ]
 
 
 (******************************************************************

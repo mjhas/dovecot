@@ -1,13 +1,13 @@
 {
   "name": "mjhas-dovecot",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "summary": "",
   "author": "mjhas",
-  "description": "",
+  "description": "This Dovecot Module installs dovecot and configures it.",
   "dependencies": [],
   "types": [],
   "checksums": {},
-  "source": "",
-  "project_page": "",
+  "source": "https://github.com/mjhas/dovecot.git",
+  "project_page": "https://github.com/mjhas/dovecot",
   "license": "Apache License 2.0"
 }
