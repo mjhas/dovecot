@@ -1,6 +1,6 @@
 {
   "name": "mjhas-dovecot",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "summary": "",
   "author": "mjhas",
   "description": "This Dovecot Module installs dovecot and configures it.",

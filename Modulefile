@@ -1,5 +1,5 @@
 name    'mjhas-dovecot'
-version '0.0.5'
+version '0.0.6'
 source 'https://github.com/mjhas/dovecot.git'
 author 'mjhas'
 license 'Apache License 2.0'
