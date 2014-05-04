@@ -7,6 +7,7 @@ class dovecot::master (
   $postfix_groupname = 'postfix',
   $postfix_mod       = '0666',
   $postfix_path      = '/var/spool/postfix/private/auth',
+  $auth_worker_user  = '$default_internal_user',
 ) {
   include dovecot
 
@@ -61,7 +62,7 @@ class dovecot::master (
 
   dovecot::config::dovecotcfmulti { 'master':
     config_file => 'conf.d/10-master.conf',
-    changes     => ['set service[ . = "auth-worker"]/user $default_internal_user',],
+    changes     => ["set service[ . = \"auth-worker\"]/user ${auth_worker_user}",],
     require     => Dovecot::Config::Dovecotcfmulti['/etc/dovecot/conf.d/10-master.conf-userdblistener1']
   }
 }
