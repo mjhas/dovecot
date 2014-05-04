@@ -62,7 +62,7 @@ class dovecot::master (
 
   dovecot::config::dovecotcfmulti { 'master':
     config_file => 'conf.d/10-master.conf',
-    changes     => ['set service[ . = "auth-worker"]/user $default_internal_user',],
+    changes     => ["set service[ . = \"auth-worker\"]/user ${auth_worker_user}",],
     require     => Dovecot::Config::Dovecotcfmulti['/etc/dovecot/conf.d/10-master.conf-userdblistener1']
   }
 }
