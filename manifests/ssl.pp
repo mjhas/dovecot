@@ -11,16 +11,16 @@ class dovecot::ssl (
     value       => $ssl,
   }
 
-  if ssl == 'yes' {
+  if $ssl == 'yes' {
     dovecot::config::dovecotcfsingle { 'ssl_cert':
       config_file => 'conf.d/10-ssl.conf',
-      value       => "'<${ssl_certfile}'",
+      value       => "<${ssl_certfile}",
     }
 
-    if ssl_ca {
+    if $ssl_ca != undef {
       dovecot::config::dovecotcfsingle { 'ssl_ca':
         config_file => 'conf.d/10-ssl.conf',
-        value       => "'<${ssl_ca}'",
+        value       => "<${ssl_ca}",
       }
     } else {
       dovecot::config::dovecotcfsingle { 'ssl_ca':
@@ -31,7 +31,7 @@ class dovecot::ssl (
 
     dovecot::config::dovecotcfsingle { 'ssl_key':
       config_file => 'conf.d/10-ssl.conf',
-      value       => "'<${ssl_keyfile}'",
+      value       => "<${ssl_keyfile}",
     }
   }
 }
