@@ -7,6 +7,7 @@ class dovecot::master (
   $postfix_groupname = 'postfix',
   $postfix_mod       = '0666',
   $postfix_path      = '/var/spool/postfix/private/auth',
+  $auth_worker_user  = '$default_internal_user',
 ) {
   include dovecot
 
