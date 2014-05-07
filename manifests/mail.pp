@@ -33,7 +33,7 @@ class dovecot::mail (
     gid    => $gid,
   }
 
-  user { $username :
+  user { $username:
     ensure     => present,
     gid        => $gid,
     home       => $userhome,
@@ -41,11 +41,12 @@ class dovecot::mail (
     uid        => $uid,
     require    => Group[$groupname]
   }
-  file { $userhome :
-    ensure => directory,
-    owner => $username,
-    group    => $groupname,
-    mode     => '0750',
-    require  => User[$username],
+
+  file { $userhome:
+    ensure  => directory,
+    owner   => $username,
+    group   => $groupname,
+    mode    => '0750',
+    require => User[$username],
   }
 }
