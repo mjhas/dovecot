@@ -46,3 +46,7 @@ Real World Configuration:
     include dovecot::auth
 
 Something more fancy.
+
+## Contributors
+
+[Andschwa](https://github.com/andschwa)
