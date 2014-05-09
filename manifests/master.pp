@@ -61,13 +61,13 @@ class dovecot::master (
     require     => Dovecot::Config::Dovecotcfmulti['/etc/dovecot/conf.d/10-master.conf-userdblistener0'],
   }
 
-  dovecot::config::dovecotcfsingle { "service[ . = 'auth-worker']/user":
+  dovecot::config::dovecotcfsingle { "service[ . = \"auth-worker\"]/user":
     ensure      => $auth_worker_user ? { false => absent, default => present },
     config_file => 'conf.d/10-master.conf',
     value       => $auth_worker_user,
   }
 
-  dovecot::config::dovecotcfsingle { "serivce[ . = 'auth-worker']/group":
+  dovecot::config::dovecotcfsingle { "service[ . = \"auth-worker\"]/group":
     ensure      => $auth_worker_group ? { false => absent, default => present },
     config_file => 'conf.d/10-master.conf',
     value       => $auth_worker_group,
