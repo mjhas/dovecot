@@ -1,7 +1,7 @@
 class dovecot::imap (
   $mail_plugins                = '$mail_plugins imap_quota',
   $mail_max_userip_connections = 10,
-  $imap_idle_notify_interval   = '2 mins'
+  $imap_idle_notify_interval   = '29 mins'
   ) {
 
   include dovecot
