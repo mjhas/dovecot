@@ -1,7 +1,26 @@
 {
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">=2.7.20"
+    }
+  ],
   "name": "mjhas-dovecot",
-  "version": "0.0.6",
-  "summary": "",
+  "version": "0.0.8",
+  "summary": "Dovecot Module",
   "author": "mjhas",
   "description": "This Dovecot Module installs dovecot and configures it.",
   "dependencies": [],
