@@ -11,7 +11,14 @@ class dovecot::sieve (
     mode    => '0755',
     require => Package['dovecot-sieve'],
   }
-  package {'dovecot-sieve':
+  
+  case $::osfamily {
+    'Debian': { $package_name = 'dovecot-sieve' }
+    'Redhat': { $package_name = 'dovecot-pigeonhole' }
+     default: { $package_name = 'dovecot-sieve' }
+  }  
+  
+  package { $package_name :
       ensure  => installed,
       before  => Exec['dovecot'],
       require => Package['dovecot'],
