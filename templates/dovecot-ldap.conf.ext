@@ -57,7 +57,7 @@ tls = no
 # LDAP library debug level as specified by LDAP_DEBUG_* in ldap_log.h.
 # -1 = everything. You may need to recompile OpenLDAP with debugging enabled
 # to get enough output.
-#debug_level = 0
+#debug_level = <%= @ldap_debug_level %>
 
 # Use authentication binding for verifying password's validity. This works by
 # logging into LDAP server using the username and password given by client.
@@ -111,7 +111,7 @@ scope = <%= @ldap_scope %>
 #   %u - username
 #   %n - user part in user@domain, same as %u if there's no domain
 #   %d - domain part in user@domain, empty if user there's no domain
-#user_filter = (&(objectClass=posixAccount)(uid=%u))
+user_filter = <%= @ldap_user_filter %>
 
 # Password checking attributes:
 #  user: Virtual user name (user@domain), if you wish to change the
@@ -129,11 +129,11 @@ scope = <%= @ldap_scope %>
 #  homeDirectory=userdb_home,uidNumber=userdb_uid,gidNumber=userdb_gid
 
 # Filter for password lookups
-#pass_filter = (&(objectClass=posixAccount)(uid=%u))
+pass_filter = <%= @ldap_pass_filter %>
 
 # Attributes and filter to get a list of all users
-#iterate_attrs = uid=user
-#iterate_filter = (objectClass=posixAccount)
+iterate_attrs = <%= @ldap_iterate_attrs %>
+iterate_filter = <%= @ldap_iterate_filter %>
 
 # Default password scheme. "{scheme}" before password overrides this.
 # List of supported schemes is in: http://wiki2.dovecot.org/Authentication
