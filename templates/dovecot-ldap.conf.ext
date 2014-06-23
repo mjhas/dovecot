@@ -57,7 +57,7 @@ tls = no
 # LDAP library debug level as specified by LDAP_DEBUG_* in ldap_log.h.
 # -1 = everything. You may need to recompile OpenLDAP with debugging enabled
 # to get enough output.
-#debug_level = <%= @ldap_debug_level %>
+debug_level = <%= @ldap_debug_level %>
 
 # Use authentication binding for verifying password's validity. This works by
 # logging into LDAP server using the username and password given by client.
@@ -90,7 +90,7 @@ auth_bind_userdn = <%= @ldap_auth_bind_userdn %>
 base = <%= @ldap_base %>
 
 # Dereference: never, searching, finding, always
-#deref = never
+deref = always
 
 # Search scope: base, onelevel, subtree
 scope = <%= @ldap_scope %>
@@ -104,7 +104,11 @@ scope = <%= @ldap_scope %>
 #
 # There are also other special fields which can be returned, see
 # http://wiki2.dovecot.org/UserDatabase/ExtraFields
-#user_attrs = homeDirectory=home,uidNumber=uid,gidNumber=gid
+user_attrs = \
+  =home=/srv/vmail/%d/%n,\
+  =uid=vmail,\
+  =gid=vmail,\
+  =mail=maildir:~/mail
 
 # Filter for user lookup. Some variables can be used (see
 # http://wiki2.dovecot.org/Variables for full list):
@@ -119,7 +123,7 @@ user_filter = <%= @ldap_user_filter %>
 #  password: Password, may optionally start with {type}, eg. {crypt}
 # There are also other special fields which can be returned, see
 # http://wiki2.dovecot.org/PasswordDatabase/ExtraFields
-#pass_attrs = uid=user,userPassword=password
+pass_attrs = <%= @ldap_pass_attrs %>
 
 # If you wish to avoid two LDAP lookups (passdb + userdb), you can use
 # userdb prefetch instead of userdb ldap in dovecot.conf. In that case you'll

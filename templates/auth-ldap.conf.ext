@@ -24,7 +24,17 @@ passdb {
 # If you don't have any user-specific settings, you can avoid the userdb LDAP
 # lookup by using userdb static instead of userdb ldap, for example:
 # <doc/wiki/UserDatabase.Static.txt>
+#these values for home and mail override mail_home and mail_location
 userdb {
   driver = static
-  args = uid=vmail gid=vmail home=/var/vmail/%u
+  args = uid=vmail gid=vmail home=/srv/vmail/%d/%n mail=maildir:~/mail
+}
+#userdb {
+#  driver = prefetch
+#}
+# adding second user DB after static or prefetch, should just be used to check user existence when mail is being delivered
+# https://www.mail-archive.com/dovecot@dovecot.org/msg18963.html
+userdb {
+  driver = ldap
+  args = /etc/dovecot/dovecot-ldap-userdb.conf.ext
 }

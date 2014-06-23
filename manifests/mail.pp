@@ -28,6 +28,15 @@ class dovecot::mail (
       ],
   }
 
+  file { "/etc/dovecot/conf.d/15-mailboxes.conf":
+    ensure  => present,
+    content => template('dovecot/15-mailboxes.conf'),
+    mode    => '0600',
+    owner   => root,
+    group   => dovecot,
+    before  => Exec['dovecot'],
+  }
+
   group { $groupname :
     ensure => present,
     gid    => $gid,
