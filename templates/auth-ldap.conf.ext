@@ -27,7 +27,8 @@ passdb {
 #these values for home and mail override mail_home and mail_location
 userdb {
   driver = static
-  args = uid=vmail gid=vmail home=/srv/vmail/%d/%n mail=maildir:~/mail
+  #args = uid=vmail gid=vmail home=/srv/vmail/%d/%n mail=maildir:~/mail
+  args = uid=vmail gid=vmail home=/srv/vmail/%n mail=maildir:~/mail
 }
 #userdb {
 #  driver = prefetch

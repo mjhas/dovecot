@@ -22,5 +22,6 @@ class dovecot {
   service { 'dovecot':
     ensure  => running,
     require => Exec['dovecot'],
+    enable  => true
   }
 }
