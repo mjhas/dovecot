@@ -80,7 +80,13 @@ auth_bind = <%= @ldap_auth_bind %>
 # For example:
 #   auth_bind_userdn = cn=%u,ou=people,o=org
 #
+<% if (not @ldap_auth_bind_userdn.empty?) then -%>
 auth_bind_userdn = <%= @ldap_auth_bind_userdn %> 
+<% else -%>
+#auth_bind_userdn =  
+<% end -%>
+
+
 
 # LDAP protocol version to use. Likely 2 or 3.
 #ldap_version = 3
