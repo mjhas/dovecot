@@ -3,6 +3,7 @@ class dovecot::ssl (
   $ssl_certfile = false,
   $ssl_keyfile  = false,
   $ssl_ca       = false,
+  $ssl_key_pass_file = false,
   ) {
 
   include dovecot
@@ -10,6 +11,13 @@ class dovecot::ssl (
   dovecot::config::dovecotcfsingle { 'ssl':
     config_file => 'conf.d/10-ssl.conf',
     value       => $ssl,
+  }
+  
+  # note that the < on the values for these is intential, it basically says read the contents of the file into the config
+  dovecot::config::dovecotcfsingle { 'ssl_key_passsword': 
+    ensure      => $ssl_key_pass_file ? { false => absent, default => present },
+    config_file => 'conf.d/10-ssl.conf',
+    value       => "<${ssl_key_pass_file}",
   }
 
   dovecot::config::dovecotcfsingle { 'ssl_cert':
