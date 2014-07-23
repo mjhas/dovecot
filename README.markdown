@@ -50,3 +50,4 @@ Something more fancy.
 ## Contributors
 
 [Andschwa](https://github.com/andschwa)
+[hdeadman](https://github.com/hdeadman)
