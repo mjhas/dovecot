@@ -1,0 +1,43 @@
+# Authentication for LDAP users. Included from auth.conf.
+#
+# <doc/wiki/AuthDatabase.LDAP.txt>
+
+passdb {
+  driver = ldap
+
+  # Path for LDAP configuration file, see example-config/dovecot-ldap.conf.ext
+  args = /etc/dovecot/dovecot-ldap.conf.ext
+}
+
+# "prefetch" user database means that the passdb already provided the
+# needed information and there's no need to do a separate userdb lookup.
+# <doc/wiki/UserDatabase.Prefetch.txt>
+#userdb {
+#  driver = prefetch
+#}
+
+#userdb {
+#  driver = ldap
+#  args = /etc/dovecot/dovecot-ldap.conf.ext
+#}
+
+# If you don't have any user-specific settings, you can avoid the userdb LDAP
+# lookup by using userdb static instead of userdb ldap, for example:
+# <doc/wiki/UserDatabase.Static.txt>
+#these values for home and mail override mail_home and mail_location
+userdb {
+  driver = static
+  #args = uid=vmail gid=vmail home=/srv/vmail/%d/%n mail=maildir:~/mail
+  # not using domain in mail home b/c domain is stripped by "auth_username_format = %Ln" and 
+  # we don't know how to look up username in ldap
+  args = uid=vmail gid=vmail home=/srv/vmail/%n mail=maildir:~/mail
+}
+#userdb {
+#  driver = prefetch
+#}
+# adding second user DB after static or prefetch, should just be used to check user existence when mail is being delivered
+# https://www.mail-archive.com/dovecot@dovecot.org/msg18963.html
+userdb {
+  driver = ldap
+  args = /etc/dovecot/dovecot-ldap-userdb.conf.ext
+}
