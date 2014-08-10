@@ -1,11 +1,11 @@
 class dovecot {
 
-  case $::osfamily {
-    'Debian': { $package_name = 'dovecot-imapd' }
-    'Redhat': { $package_name = 'dovecot' }
-     default: { $package_name = 'dovecot-imapd' }
-  }  
-  
+  $package_name = $::osfamily ? {
+    'Debian' => 'dovecot-imapd',
+    'Redhat' => 'dovecot',
+    default  => 'dovecot-imapd',
+  }
+
   package { $package_name:
     ensure => installed,
     alias  => 'dovecot',

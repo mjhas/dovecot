@@ -1,4 +1,6 @@
-class dovecot::lda ($postmaster_address="root@$::fqdn") {
+class dovecot::lda (
+  $postmaster_address = "root@${::fqdn}",
+) {
   include dovecot
 
   dovecot::config::dovecotcfmulti { 'lda':

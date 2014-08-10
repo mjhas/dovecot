@@ -28,7 +28,7 @@ class dovecot::mail (
       ],
   }
 
-  file { "/etc/dovecot/conf.d/15-mailboxes.conf":
+  file { '/etc/dovecot/conf.d/15-mailboxes.conf':
     ensure  => present,
     content => template('dovecot/15-mailboxes.conf'),
     mode    => '0600',
