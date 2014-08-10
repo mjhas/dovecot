@@ -9,7 +9,6 @@ class dovecot::master (
   $postfix_path      = '/var/spool/postfix/private/auth',
   $auth_worker_user  = '$default_internal_user',
   $auth_worker_group = false,
-  $lmtp_path         = '/var/spool/postfix/private/dovecot-lmtp'
 ) {
   include dovecot
 
@@ -72,28 +71,5 @@ class dovecot::master (
     ensure      => $auth_worker_group ? { false => absent, default => present },
     config_file => 'conf.d/10-master.conf',
     value       => $auth_worker_group,
-  }
-
-  dovecot::config::dovecotcfmulti { '/etc/dovecot/conf.d/10-master.conf-lmtp0':
-    config_file => 'conf.d/10-master.conf',
-    onlyif      => "match service[ . = \"lmtp\"]/unix_listener[ . = \"${lmtp_path}\"] size == 0 ",
-    changes     => [
-      "ins unix_listener after service[ . = \"lmtp\"]/unix_listener[last()]",
-      "set service[ . = \"lmtp\"]/unix_listener[last()] \"${lmtp_path}\"",
-      "set service[ . = \"lmtp\"]/unix_listener[ . = \"${lmtp_path}\"]/mode \"${postfix_mod}\"",
-      "set service[ . = \"lmtp\"]/unix_listener[ . = \"${lmtp_path}\"]/user \"${postfix_username}\"",
-      "set service[ . = \"lmtp\"]/unix_listener[ . = \"${lmtp_path}\"]/group \"${postfix_groupname}\"",
-      ],
-  }
-
-  dovecot::config::dovecotcfmulti { '/etc/dovecot/conf.d/10-master.conf-lmtp1':
-    config_file => 'conf.d/10-master.conf',
-    onlyif      => "match service[ . = \"lmtp\"]/unix_listener[ . = \"${lmtp_path}\"] size == 1 ",
-    changes     => [
-      "set service[ . = \"lmtp\"]/unix_listener[ . = \"${lmtp_path}\"]/mode \"${postfix_mod}\"",
-      "set service[ . = \"lmtp\"]/unix_listener[ . = \"${lmtp_path}\"]/user \"${postfix_username}\"",
-      "set service[ . = \"lmtp\"]/unix_listener[ . = \"${lmtp_path}\"]/group \"${postfix_groupname}\"",
-      ],
-    require     => Dovecot::Config::Dovecotcfmulti['/etc/dovecot/conf.d/10-master.conf-lmtp0'],
   }
 }
