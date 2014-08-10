@@ -10,7 +10,7 @@ class dovecot::mail (
   $mailstoretype   = 'maildir',
   $userhome        = '/srv/vmail',
   $mailstorepath   = '/srv/vmail/%d/%n/',
-  $mailplugins     = 'quota',
+  $mailplugins     = '$mail_plugins quota',
 ) {
   include dovecot
 
@@ -24,7 +24,7 @@ class dovecot::mail (
       "set last_valid_uid  ${last_valid_uid}",
       "set first_valid_gid ${first_valid_gid}",
       "set last_valid_gid ${last_valid_gid}",
-      "set mail_plugins '${$mailplugins}'",
+      "set mail_plugins ${mailplugins}",
       ],
   }
 
