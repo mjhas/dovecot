@@ -24,11 +24,11 @@ class dovecot::mail (
       "set last_valid_uid  ${last_valid_uid}",
       "set first_valid_gid ${first_valid_gid}",
       "set last_valid_gid ${last_valid_gid}",
-      "set mail_plugins '${$mailplugins}'",
+      "set mail_plugins ${mailplugins}",
       ],
   }
 
-  file { "/etc/dovecot/conf.d/15-mailboxes.conf":
+  file { '/etc/dovecot/conf.d/15-mailboxes.conf':
     ensure  => present,
     content => template('dovecot/15-mailboxes.conf'),
     mode    => '0600',

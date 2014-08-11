@@ -1,7 +1,7 @@
 class dovecot::sieve (
   $username  = 'vmail',
   $groupname = 'vmail',
-) {
+  ) {
   include dovecot
 
   file { '/var/lib/dovecot/sieve':
@@ -11,13 +11,13 @@ class dovecot::sieve (
     mode    => '0755',
     require => Package['dovecot-sieve'],
   }
-  
-  case $::osfamily {
-    'Debian': { $package_name = 'dovecot-sieve' }
-    'Redhat': { $package_name = 'dovecot-pigeonhole' }
-     default: { $package_name = 'dovecot-sieve' }
-  }  
-  
+
+  $package_name = $::osfamily ? {
+    'Debian' => 'dovecot-sieve',
+    'Redhat' => 'dovecot-pigeonhole',
+    default  => 'dovecot-sieve',
+  }
+
   package { $package_name :
       ensure  => installed,
       before  => Exec['dovecot'],
