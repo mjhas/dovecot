@@ -10,7 +10,7 @@ class dovecot::mail (
   $mailstoretype   = 'maildir',
   $userhome        = '/srv/vmail',
   $mailstorepath   = '/srv/vmail/%d/%n/',
-  $mailplugins     = '$mail_plugins quota',
+  $mailplugins     = 'quota',
 ) {
   include dovecot
 
