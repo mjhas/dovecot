@@ -1,16 +1,17 @@
 class dovecot::mail (
-  $username        = 'vmail',
-  $groupname       = 'vmail',
-  $gid             = 5000,
-  $uid             = 5000,
-  $first_valid_uid = 5000,
-  $last_valid_uid  = 5000,
-  $first_valid_gid = 5000,
-  $last_valid_gid  = 5000,
-  $mailstoretype   = 'maildir',
-  $userhome        = '/srv/vmail',
-  $mailstorepath   = '/srv/vmail/%d/%n/',
-  $mailplugins     = 'quota',
+  $username           = 'vmail',
+  $groupname          = 'vmail',
+  $gid                = 5000,
+  $uid                = 5000,
+  $first_valid_uid    = 5000,
+  $last_valid_uid     = 5000,
+  $first_valid_gid    = 5000,
+  $last_valid_gid     = 5000,
+  $manage_mailboxfile = true,
+  $mailstoretype      = 'maildir',
+  $userhome           = '/srv/vmail',
+  $mailstorepath      = '/srv/vmail/%d/%n/',
+  $mailplugins        = 'quota',
 ) {
   include dovecot
 
@@ -27,14 +28,15 @@ class dovecot::mail (
       "set mail_plugins '${$mailplugins}'",
       ],
   }
-
-  file { '/etc/dovecot/conf.d/15-mailboxes.conf':
-    ensure  => present,
-    content => template('dovecot/15-mailboxes.conf'),
-    mode    => '0600',
-    owner   => root,
-    group   => dovecot,
-    before  => Exec['dovecot'],
+  if $manage_mailboxfile {
+    file { '/etc/dovecot/conf.d/15-mailboxes.conf':
+      ensure  => present,
+      content => template('dovecot/15-mailboxes.conf'),
+      mode    => '0644',
+      owner   => root,
+      group   => root,
+      before  => Exec['dovecot'],
+    }
   }
 
   group { $groupname :
