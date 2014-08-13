@@ -24,9 +24,9 @@
     }
   ],
   "name": "mjhas-dovecot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "mjhas",
-  "summary": "This Dovecot Module installs dovecot and configures it.",
+  "summary": "This Dovecot Module installs dovecot and configures it using Augeas",
   "dependencies": [],
   "source": "https://github.com/mjhas/dovecot.git",
   "project_page": "https://github.com/mjhas/dovecot",
