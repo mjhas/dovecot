@@ -1,9 +1,9 @@
 name    'mjhas-dovecot'
-version '0.0.7'
+version '1.0.0'
 source 'https://github.com/mjhas/dovecot.git'
 author 'mjhas'
 license 'Apache License 2.0'
-summary ''
+summary 'This Dovecot Module installs dovecot and configures it.'
 description 'This Dovecot Module installs dovecot and configures it.'
 project_page 'https://github.com/mjhas/dovecot'
 
