@@ -109,7 +109,7 @@ let lns = (comment|empty|entry|command|block)*
 
 (* Variable: filter *)
 let filter = incl "/etc/dovecot/dovecot.conf"
-           . (incl "/etc/dovecot/conf.d/*.conf")
+           . (incl "/etc/dovecot/conf.d/*")
            . Util.stdexcl
 
 let xfm = transform lns filter
