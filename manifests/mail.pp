@@ -8,6 +8,7 @@ class dovecot::mail (
   $first_valid_gid    = 5000,
   $last_valid_gid     = 5000,
   $manage_mailboxfile = true,
+  $mailboxtemplate    = 'dovecot/15-mailboxes.conf',
   $mailstoretype      = 'maildir',
   $userhome           = '/srv/vmail',
   $mailstorepath      = '/srv/vmail/%d/%n/',
@@ -31,7 +32,7 @@ class dovecot::mail (
   if $manage_mailboxfile {
     file { '/etc/dovecot/conf.d/15-mailboxes.conf':
       ensure  => present,
-      content => template('dovecot/15-mailboxes.conf'),
+      content => template($mailboxtemplate),
       mode    => '0644',
       owner   => root,
       group   => root,
