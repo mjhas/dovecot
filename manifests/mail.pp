@@ -48,18 +48,22 @@ class dovecot::mail (
     }
   }
 
-  group { $groupname :
-    ensure => present,
-    gid    => $gid,
+  if !defined(Group[$groupname]) {
+    group { $groupname :
+      ensure => present,
+      gid    => $gid,
+    }
   }
 
-  user { $username:
-    ensure     => present,
-    gid        => $gid,
-    home       => $userhome,
-    managehome => false,
-    uid        => $uid,
-    require    => Group[$groupname]
+  if !defined(User[$username]) {
+    user { $username:
+      ensure     => present,
+      gid        => $gid,
+      home       => $userhome,
+      managehome => false,
+      uid        => $uid,
+      require    => Group[$groupname]
+    }
   }
 
   file { $userhome:
