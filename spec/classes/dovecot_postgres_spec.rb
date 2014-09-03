@@ -7,7 +7,7 @@ describe 'dovecot::postgres', :type => :class do
   it { should contain_package('dovecot-pgsql') }
   it do
       should contain_file('/etc/dovecot/dovecot-sql.conf.ext') \
-        .with_content(/^connect = host=localhost dbname=name user=username password=password$/)
+        .with_content(/^connect = host=localhost port=5432 dbname=name user=username password=password$/)
     end
 end
 

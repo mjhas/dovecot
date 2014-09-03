@@ -1,5 +1,5 @@
 driver = pgsql
-connect = host=<%= @dbhost %> dbname=<%= @dbname %> user=<%= @dbusername %> password=<%= @dbpassword %>
+connect = host=<%= @dbhost %> port=<%= @dbport %> dbname=<%= @dbname %> user=<%= @dbusername %> password=<%= @dbpassword %>
 default_pass_scheme = CRYPT
 user_query = \
     SELECT '<%= @mailstorepath %>'||SUBSTRING(email from (position('@' in email)+1) for (char_length(email)-position('@' in email)+1)) || '/' || SUBSTRING(email from 0 for position('@' in email)) AS home, '*:bytes='||quota AS quota_rule \

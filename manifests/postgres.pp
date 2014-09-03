@@ -5,6 +5,7 @@ class dovecot::postgres (
   $dbpassword,
   $dbusername,
   $dbhost='localhost',
+  $dbport=5432,
   $mailstorepath='/srv/vmail/'
 ) {
   file { "/etc/dovecot/dovecot-sql.conf.ext":
