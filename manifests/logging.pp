@@ -5,6 +5,7 @@ class dovecot::logging (
   $auth_debug_passwords = 'no',
   $mail_debug           = 'no',
   $verbose_ssl          = 'no',
+  $log_timestamp        = '%b %d %H:%M:%S ',
 ) {
   include dovecot
 
@@ -31,5 +32,12 @@ class dovecot::logging (
   dovecot::config::dovecotcfsingle { 'verbose_ssl':
     config_file => 'conf.d/10-logging.conf',
     value       => $verbose_ssl,
+  }
+
+  if $log_timestamp != false {
+    dovecot::config::dovecotcfsingle { 'log_timestamp':
+      config_file => 'conf.d/10-logging.conf',
+      value       => "\"${log_timestamp}\"",
+    }
   }
 }
