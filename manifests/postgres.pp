@@ -6,16 +6,18 @@ class dovecot::postgres (
   $dbusername,
   $dbhost='localhost',
   $dbport=5432,
-  $mailstorepath='/srv/vmail/'
+  $mailstorepath='/srv/vmail/',
+  $sqlconftemplate='dovecot/dovecot-sql.conf.ext',
 ) {
   file { "/etc/dovecot/dovecot-sql.conf.ext":
     ensure  => present,
-    content => template('dovecot/dovecot-sql.conf.ext'),
+    content => template($sqlconftemplate),
     mode    => '0600',
     owner   => root,
     group   => dovecot,
     require => Package['dovecot-pgsql'],
     before  => Exec['dovecot'],
+    notify => Service['dovecot'],
   }
 
   package {'dovecot-pgsql':
