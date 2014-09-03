@@ -1,3 +1,4 @@
+# 10-master.conf
 class dovecot::master (
   $username          = 'vmail',
   $groupname         = 'vmail',

@@ -1,3 +1,4 @@
+# 10-logging.conf
 class dovecot::logging (
   $auth_verbose         = 'no',
   $auth_debug           = 'no',

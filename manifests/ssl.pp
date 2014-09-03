@@ -1,3 +1,4 @@
+# 10-ssl.conf
 class dovecot::ssl (
   $ssl               = 'no',
   $ssl_certfile      = false,

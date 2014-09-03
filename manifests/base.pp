@@ -1,3 +1,4 @@
+# dovecot.conf
 class dovecot::base (
   $protocols = 'imap',
   $listen    = '* , ::',

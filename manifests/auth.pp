@@ -1,3 +1,4 @@
+# 10-auth.conf
 class dovecot::auth (
   $disable_plaintext_auth = 'no',
   $auth_mechanisms        = 'plain login',

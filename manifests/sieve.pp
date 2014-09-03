@@ -1,3 +1,5 @@
+# 90-plugin.conf *or*
+# 90-sieve.conf
 class dovecot::sieve (
   $username  = 'vmail',
   $groupname = 'vmail',

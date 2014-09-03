@@ -1,3 +1,5 @@
+# 10-auth.conf
+# dovecot-sql.conf.ext
 class dovecot::postgres (
   $dbname,
   $dbpassword,

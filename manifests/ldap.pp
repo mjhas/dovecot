@@ -1,3 +1,5 @@
+# dovecot-ldap.conf.ext
+# auth-ldap.conf.ext
 class dovecot::ldap (
   $ldap_hosts            = 'ldap.example.org:389',
   $ldap_dn               = 'cn=vmail,cn=users,dc=example,dc=org',
