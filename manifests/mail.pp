@@ -31,8 +31,10 @@ class dovecot::mail (
       "set mail_plugins '${$mailplugins}'",
       if manage_mbox_read_locks {
         "set mbox_read_locks '${manage_mbox_read_locks}'",
+      }
       if manage_mbox_write_locks {
         "set mbox_write_locks '${manage_mbox_write_locks}'",
+      }
       ],
   }
   if $manage_mailboxfile {
