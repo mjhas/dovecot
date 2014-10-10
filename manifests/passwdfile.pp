@@ -1,4 +1,6 @@
 class dovecot::passwdfile (
+  $authscheme = "CRYPT"
+  $username_format = "%u"
   $passwdfilename = "/etc/dovecot/dovecot-passdb"
 ) {
   file { "/etc/dovecot/dovecot-sql.conf.ext":
