@@ -1,3 +1,4 @@
+# Note that you will still need to generate your passwd file.
 class dovecot::passwdfile (
   $authscheme = "CRYPT"
   $username_format = "%u"
