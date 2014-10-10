@@ -13,8 +13,8 @@ class dovecot::mail (
   $userhome                = '/srv/vmail',
   $mailstorepath           = '/srv/vmail/%d/%n/',
   $mailplugins             = 'quota',
-  $manage_mbox_read_locks  = 'fcntl',
-  $manage_mbox_write_locks = 'dotlock fcntl'
+  $manage_mbox_read_locks  = false,
+  $manage_mbox_write_locks = false
 ) {
   include dovecot
 
