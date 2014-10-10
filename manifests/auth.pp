@@ -3,7 +3,6 @@ class dovecot::auth (
   $auth_mechanisms        = 'plain login',
   $auth_username_format   = '%Ln',
   $auth_default_realm     = "${::fqdn}",
-  $auth_include_file      = "auth-passwdfile.conf.ext"
 ) {
   include dovecot
 
@@ -14,7 +13,6 @@ class dovecot::auth (
       "set auth_mechanisms '${auth_mechanisms}'",
       "set auth_username_format '${auth_username_format}'",
       "set auth_default_realm '${auth_default_realm}'"
-      "set auth_include_file '${auth_include_file}'"
     ],
   }
 }
