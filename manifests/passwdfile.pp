@@ -1,12 +1,12 @@
 # Note that you will still need to generate your passwd file.
 class dovecot::passwdfile (
-  $authscheme = "CRYPT"
-  $username_format = "%u"
+  $authscheme = "CRYPT",
+  $username_format = "%u",
   $passwdfilename = "/etc/dovecot/dovecot-passdb"
 ) {
   file { "/etc/dovecot/dovecot-passwdfile.conf.ext":
     ensure  => present,
-    content => template('dovecot/dovecot-passwdfile.conf.ext'),
+    content => template('dovecot/auth-passwdfile.conf.ext'),
     mode    => '0600',
     owner   => root,
     before  => Exec['dovecot'],
