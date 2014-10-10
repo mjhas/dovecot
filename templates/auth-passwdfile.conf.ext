@@ -1,3 +1,4 @@
+# THIS FILE IS MANAGED BY PUPPET. CHANGES MADE TO THIS FILE WILL PROBABLY BE LOST.
 # Authentication for passwd-file users. Included from auth.conf.
 #
 # passwd-like file with specified location.
@@ -5,10 +6,10 @@
 
 passdb {
   driver = passwd-file
-  args = scheme=CRYPT username_format=%u /etc/dovecot/users
+  args = scheme=<% @authscheme -%> username_format=<% @username_format -%> <% @passwdfilename -%>
 }
 
 userdb {
   driver = passwd-file
-  args = username_format=%u /etc/dovecot/users
+  args = username_format=<% @username_format -%> <% @passwdfilename -%>
 }
