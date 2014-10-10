@@ -14,7 +14,7 @@ class dovecot::auth (
       "set auth_mechanisms '${auth_mechanisms}'",
       "set auth_username_format '${auth_username_format}'",
       "set auth_default_realm '${auth_default_realm}'"
-      "set auth_include_file '${auth_include_file}'"
+      "set auth_include_file '!${auth_include_file}'"
     ],
   }
 }
