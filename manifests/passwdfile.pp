@@ -3,7 +3,7 @@ class dovecot::passwdfile (
   $username_format = "%u"
   $passwdfilename = "/etc/dovecot/dovecot-passdb"
 ) {
-  file { "/etc/dovecot/dovecot-sql.conf.ext":
+  file { "/etc/dovecot/dovecot-passwdfile.conf.ext":
     ensure  => present,
     content => template('dovecot/dovecot-passwdfile.conf.ext'),
     mode    => '0600',
