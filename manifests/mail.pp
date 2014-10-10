@@ -13,8 +13,8 @@ class dovecot::mail (
   $userhome                = '/srv/vmail',
   $mailstorepath           = '/srv/vmail/%d/%n/',
   $mailplugins             = 'quota',
-  $manage_mbox_read_locks  = false,
-  $manage_mbox_write_locks = false
+  $manage_mbox_read_locks  = 'fcntl',
+  $manage_mbox_write_locks = 'dotlock fcntl'
 ) {
   include dovecot
 
@@ -29,13 +29,10 @@ class dovecot::mail (
       "set first_valid_gid ${first_valid_gid}",
       "set last_valid_gid ${last_valid_gid}",
       "set mail_plugins '${$mailplugins}'",
-      if manage_mbox_read_locks {
-        "set mbox_read_locks '${manage_mbox_read_locks}'",
-      }
-      if manage_mbox_write_locks {
-        "set mbox_write_locks '${manage_mbox_write_locks}'",
-      }
-      ],
+      "set mbox_read_locks '${manage_mbox_read_locks}'",
+      "set mbox_write_locks '${manage_mbox_write_locks}'",
+      }      
+    ],
   }
   if $manage_mailboxfile {
     file { '/etc/dovecot/conf.d/15-mailboxes.conf':
