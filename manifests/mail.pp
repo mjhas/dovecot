@@ -1,18 +1,20 @@
 class dovecot::mail (
-  $username           = 'vmail',
-  $groupname          = 'vmail',
-  $gid                = 5000,
-  $uid                = 5000,
-  $first_valid_uid    = 5000,
-  $last_valid_uid     = 5000,
-  $first_valid_gid    = 5000,
-  $last_valid_gid     = 5000,
-  $manage_mailboxfile = true,
-  $mailboxtemplate    = 'dovecot/15-mailboxes.conf',
-  $mailstoretype      = 'maildir',
-  $userhome           = '/srv/vmail',
-  $mailstorepath      = '/srv/vmail/%d/%n/',
-  $mailplugins        = 'quota',
+  $username                = 'vmail',
+  $groupname               = 'vmail',
+  $gid                     = 5000,
+  $uid                     = 5000,
+  $first_valid_uid         = 5000,
+  $last_valid_uid          = 5000,
+  $first_valid_gid         = 5000,
+  $last_valid_gid          = 5000,
+  $manage_mailboxfile      = true,
+  $mailboxtemplate         = 'dovecot/15-mailboxes.conf',
+  $mailstoretype           = 'maildir',
+  $userhome                = '/srv/vmail',
+  $mailstorepath           = '/srv/vmail/%d/%n/',
+  $mailplugins             = 'quota',
+  $manage_mbox_read_locks  = 'fcntl',
+  $manage_mbox_write_locks = 'dotlock fcntl'
 ) {
   include dovecot
 
@@ -27,7 +29,9 @@ class dovecot::mail (
       "set first_valid_gid ${first_valid_gid}",
       "set last_valid_gid ${last_valid_gid}",
       "set mail_plugins '${$mailplugins}'",
-      ],
+      "set mbox_read_locks '${manage_mbox_read_locks}'",
+      "set mbox_write_locks '${manage_mbox_write_locks}'",
+    ],
   }
   if $manage_mailboxfile {
     file { '/etc/dovecot/conf.d/15-mailboxes.conf':

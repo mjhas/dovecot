@@ -1,0 +1,15 @@
+# THIS FILE IS MANAGED BY PUPPET. CHANGES MADE TO THIS FILE WILL PROBABLY BE LOST.
+# Authentication for passwd-file users. Included from auth.conf.
+#
+# passwd-like file with specified location.
+# <doc/wiki/AuthDatabase.PasswdFile.txt>
+
+passdb {
+  driver = passwd-file
+  args = scheme=<% @authscheme -%> username_format=<% @username_format -%> <% @passwdfilename -%>
+}
+
+userdb {
+  driver = passwd-file
+  args = username_format=<% @username_format -%> <% @passwdfilename -%>
+}
