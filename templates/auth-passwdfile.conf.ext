@@ -6,10 +6,10 @@
 
 passdb {
   driver = passwd-file
-  args = scheme=<% @authscheme -%> username_format=<% @username_format -%> <% @passwdfilename -%>
+  args = scheme=<%= @authscheme %> username_format=<%= @username_format %> <%= @passwdfilename %>
 }
 
 userdb {
   driver = passwd-file
-  args = username_format=<% @username_format -%> <% @passwdfilename -%>
+  args = username_format=<%= @username_format %> <%= @passwdfilename %>
 }
