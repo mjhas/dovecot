@@ -27,7 +27,9 @@
   "version": "1.0.1",
   "author": "mjhas",
   "summary": "This Dovecot Module installs dovecot and configures it using Augeas",
-  "dependencies": [],
+  "dependencies": [
+    {"name":"puppetlabs/stdlib","version_requirement":"4.3.2"}
+  ],
   "source": "https://github.com/mjhas/dovecot.git",
   "project_page": "https://github.com/mjhas/dovecot",
   "license": "Apache License 2.0"
