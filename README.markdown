@@ -51,3 +51,6 @@ Something more fancy.
 
 [Andschwa](https://github.com/andschwa)
 [hdeadman](https://github.com/hdeadman)
+[WBasson](https://github.com/WBasson)
+[tthayer](https://github.com/tthayer)
+
