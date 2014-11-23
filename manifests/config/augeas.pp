@@ -1,5 +1,16 @@
 class dovecot::config::augeas {
-  if $::lsbdistcodename == 'wheezy' {
+
+  case $::lsbdistcodename {
+    /squeeze|squeeze-lts|wheezy/: {
+      $install_lenses = true
+    }
+    /lucid|precise|trusty|utopic/: {
+      $install_lenses = true
+    }
+    default: { $install_lenses = false }
+  }
+
+  if $install_lenses {
     file { '/usr/share/augeas/lenses/dist/dovecot.aug':
       ensure => present,
       source => 'puppet:///modules/dovecot/dovecot.aug',
