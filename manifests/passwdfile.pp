@@ -9,7 +9,7 @@ class dovecot::passwdfile (
     content => template('dovecot/auth-passwdfile.conf.ext'),
     mode    => '0600',
     owner   => root,
-    before  => Exec['dovecot'],
+    before  => Package['dovecot'],
   }
 
   dovecot::config::dovecotcfmulti { 'passwdfileauth':

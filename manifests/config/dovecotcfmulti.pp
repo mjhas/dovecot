@@ -7,7 +7,7 @@ define dovecot::config::dovecotcfmulti(
   Augeas {
     context => "/files/etc/dovecot/${config_file}",
     notify  => Service['dovecot'],
-    require => Exec['dovecot'],
+    require => Package['dovecot'],
   }
 
   augeas { "dovecot /etc/dovecot/${config_file} ${name}":

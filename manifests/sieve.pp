@@ -10,6 +10,7 @@ class dovecot::sieve (
     group   => $groupname,
     mode    => '0755',
     require => Package['dovecot-sieve'],
+    tag     => 'dovecot',
   }
 
   $package_name = $::osfamily ? {
@@ -24,10 +25,11 @@ class dovecot::sieve (
   }
 
   package { $package_name :
-      ensure  => installed,
-      before  => Exec['dovecot'],
-      require => Package[$mailpackages],
-      alias   => 'dovecot-sieve',
+    ensure  => installed,
+    before  => Exec['dovecot'],
+    require => Package[$mailpackages],
+    alias   => 'dovecot-sieve',
+    tag     => 'dovecot',
   }
 
   dovecot::config::dovecotcfmulti { 'plugin':

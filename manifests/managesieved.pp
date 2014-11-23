@@ -9,10 +9,10 @@ class dovecot::managesieved {
   }
 
   package { $package_name :
-      ensure  => installed,
-      before  => Exec['dovecot'],
-      require => Package['dovecot'],
-      alias   => 'dovecot-managesieved',
+    ensure  => installed,
+    require => Package['dovecot'],
+    alias   => 'dovecot-managesieved',
+    tag    => 'dovecot',
   }
 
   dovecot::config::dovecotcfmulti { 'managesieved-plugin':
@@ -20,7 +20,7 @@ class dovecot::managesieved {
     changes     => [
       "set service[1] 'managesieve'",
       "set service[2] 'managesieve-login'",
-      ],
+    ],
   }
 
 }

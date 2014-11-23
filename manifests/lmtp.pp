@@ -18,7 +18,8 @@ class dovecot::lmtp (
   package { $package_name:
     ensure => installed,
     alias  => 'dovecot-lmtpd',
-    before => Exec['dovecot']
+    before => Package['dovecot'],
+    tag    => 'dovecot',
   }
 
   if $dovecot::base::protocols !~ /lmtp/ {

@@ -42,7 +42,7 @@ class dovecot::mail (
       mode    => '0644',
       owner   => root,
       group   => root,
-      before  => Exec['dovecot'],
+      require => Package['dovecot'],
     }
   }
 
