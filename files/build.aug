@@ -299,3 +299,107 @@ let block_newlines (entry:lens) (comment:lens) =
 let named_block (kw:regexp) (entry:lens) = [ key kw . block entry . eol ]
 
 
+(************************************************************************
+ * Group:               COMBINATORICS
+ ************************************************************************)
+
+(************************************************************************
+ * View: combine_two_ord
+ *   Combine two lenses, ensuring first lens is first
+ *
+ *   Parameters:
+ *     a:lens - the first lens
+ *     b:lens - the second lens
+ ************************************************************************)
+let combine_two_ord (a:lens) (b:lens) = a . b
+
+(************************************************************************
+ * View: combine_two
+ *   Combine two lenses
+ *
+ *   Parameters:
+ *     a:lens - the first lens
+ *     b:lens - the second lens
+ ************************************************************************)
+let combine_two (a:lens) (b:lens) =
+  combine_two_ord a b | combine_two_ord b a
+
+(************************************************************************
+ * View: combine_two_opt_ord
+ *   Combine two lenses optionally, ensuring first lens is first
+ *   (a, and optionally b)
+ *
+ *   Parameters:
+ *     a:lens - the first lens
+ *     b:lens - the second lens
+ ************************************************************************)
+let combine_two_opt_ord (a:lens) (b:lens) = a . b?
+
+(************************************************************************
+ * View: combine_two_opt
+ *   Combine two lenses optionally
+ *   (either a, b, or both, in any order)
+ *
+ *   Parameters:
+ *     a:lens - the first lens
+ *     b:lens - the second lens
+ ************************************************************************)
+let combine_two_opt (a:lens) (b:lens) =
+  combine_two_opt_ord a b | combine_two_opt_ord b a
+
+(************************************************************************
+ * View: combine_three_ord
+ *   Combine three lenses, ensuring first lens is first
+ *   (a followed by either b, c, in any order)
+ *
+ *   Parameters:
+ *     a:lens - the first lens
+ *     b:lens - the second lens
+ *     c:lens - the third lens
+ ************************************************************************)
+let combine_three_ord (a:lens) (b:lens) (c:lens) =
+  combine_two_ord a (combine_two b c)
+
+(************************************************************************
+ * View: combine_three
+ *   Combine three lenses
+ *
+ *   Parameters:
+ *     a:lens - the first lens
+ *     b:lens - the second lens
+ *     c:lens - the third lens
+ ************************************************************************)
+let combine_three (a:lens) (b:lens) (c:lens) =
+    combine_three_ord a b c
+  | combine_three_ord b a c
+  | combine_three_ord c b a
+
+
+(************************************************************************
+ * View: combine_three_opt_ord
+ *   Combine three lenses optionally, ensuring first lens is first
+ *   (a followed by either b, c, or any of them, in any order)
+ *
+ *   Parameters:
+ *     a:lens - the first lens
+ *     b:lens - the second lens
+ *     c:lens - the third lens
+ ************************************************************************)
+let combine_three_opt_ord (a:lens) (b:lens) (c:lens) =
+  combine_two_opt_ord a (combine_two_opt b c)
+
+(************************************************************************
+ * View: combine_three_opt
+ *   Combine three lenses optionally
+ *   (either a, b, c, or any of them, in any order)
+ *
+ *   Parameters:
+ *     a:lens - the first lens
+ *     b:lens - the second lens
+ *     c:lens - the third lens
+ ************************************************************************)
+let combine_three_opt (a:lens) (b:lens) (c:lens) =
+    combine_three_opt_ord a b c
+  | combine_three_opt_ord b a c
+  | combine_three_opt_ord c b a
+
