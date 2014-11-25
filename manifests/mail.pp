@@ -12,6 +12,8 @@ class dovecot::mail (
   $mailstoretype           = 'maildir',
   $userhome                = '/srv/vmail',
   $mailstorepath           = '/srv/vmail/%d/%n/',
+  # Set mailplugins to undef in the calling class
+  # if no plugins are being used.
   $mailplugins             = 'quota',
   $manage_mbox_read_locks  = 'fcntl',
   $manage_mbox_write_locks = 'dotlock fcntl'

@@ -4,8 +4,8 @@ class dovecot::passwdfile (
   $username_format = "%u",
   $passwdfilename = "/etc/dovecot/dovecot-passdb"
 ) {
-  file { "/etc/dovecot/dovecot-passwdfile.conf.ext":
-    ensure  => present,
+  file { "/etc/dovecot/conf.d/auth-passwdfile.conf.ext":
+    ensure  => file,
     content => template('dovecot/auth-passwdfile.conf.ext'),
     mode    => '0600',
     owner   => root,
@@ -18,6 +18,6 @@ class dovecot::passwdfile (
       "set include 'auth-passwdfile.conf.ext'",
       "rm  include[ . = 'auth-system.conf.ext']",
     ],
-    require => File["/etc/dovecot/dovecot-passwdfile.conf.ext"]
+    require => File["/etc/dovecot/conf.d/auth-passwdfile.conf.ext"]
   }
 }
