@@ -8,7 +8,7 @@ install:
   - sudo groupadd dovecot
 language: ruby
 bundler_args: --without development
-script: "sudo -E bash -c \"PATH=$PATH; echo $PATH && bundle install && bundle exec rake spec SPEC_OPTS='--format documentation' && puppet apply --modulepath=`dirname $TRAVIS_BUILD_DIR` --noop tests/init.pp\""
+script: "sudo -E bash ./travis_build.sh $PATH"
 rvm:
   - 1.8.7
 env:
