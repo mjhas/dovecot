@@ -21,7 +21,7 @@ class dovecot::ldap (
     mode    => '0600',
     owner   => root,
     group   => dovecot,
-    before  => Exec['dovecot'],
+    before  => Package['dovecot'],
   }
 
   file { '/etc/dovecot/dovecot-ldap-userdb.conf.ext':
@@ -30,7 +30,7 @@ class dovecot::ldap (
     mode    => '0600',
     owner   => root,
     group   => dovecot,
-    before  => Exec['dovecot'],
+    before  => Package['dovecot'],
   }
 
   file { '/etc/dovecot/conf.d/auth-ldap.conf.ext':
@@ -39,7 +39,7 @@ class dovecot::ldap (
     mode    => '0600',
     owner   => root,
     group   => dovecot,
-    before  => Exec['dovecot'],
+    before  => Package['dovecot'],
   }
 
   dovecot::config::dovecotcfmulti { 'ldapauth':

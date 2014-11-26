@@ -185,4 +185,3 @@ Variable: stdexcl
     (excl "*.bak") .
     (excl "*.old") .
     (excl "#*#")
-

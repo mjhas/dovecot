@@ -2,6 +2,7 @@
 *~
 *.gem
 *.rbc
+*.swp
 .bundle
 .config
 coverage
@@ -18,3 +19,6 @@ tmp
 _yardoc
 doc/
 Gemfile.lock
+spec/fixtures/manifests/
+spec/fixtures/modules/
+vendor/
