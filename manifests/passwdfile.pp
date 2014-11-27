@@ -18,6 +18,6 @@ class dovecot::passwdfile (
       "set include 'auth-passwdfile.conf.ext'",
       "rm  include[ . = 'auth-system.conf.ext']",
     ],
-    require => File["/etc/dovecot/conf.d/auth-passwdfile.conf.ext"]
+    require     => File["/etc/dovecot/conf.d/auth-passwdfile.conf.ext"]
   }
 }

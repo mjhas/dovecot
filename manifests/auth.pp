@@ -3,7 +3,7 @@ class dovecot::auth (
   $disable_plaintext_auth = 'no',
   $auth_mechanisms        = 'plain login',
   $auth_username_format   = '%Ln',
-  $auth_default_realm     = "${::fqdn}",
+  $auth_default_realm     = $::fqdn,
 ) {
   include dovecot
 

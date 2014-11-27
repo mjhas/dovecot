@@ -1,3 +1,4 @@
+# augeas lenses
 class dovecot::config::augeas {
   file { '/usr/share/augeas/lenses/dist/dovecot.aug':
     ensure => present,
