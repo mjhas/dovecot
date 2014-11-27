@@ -1,13 +1,13 @@
 # 10-auth.conf
 # dovecot-sql.conf.ext
 class dovecot::postgres (
-  $dbname,
-  $dbpassword,
-  $dbusername,
-  $dbhost='localhost',
-  $dbport=5432,
-  $mailstorepath='/srv/vmail/',
-  $sqlconftemplate='dovecot/dovecot-sql.conf.ext',
+  $dbname          = 'mails',
+  $dbpassword      = 'admin',
+  $dbusername      = 'pass',
+  $dbhost          = 'localhost',
+  $dbport          = 5432,
+  $mailstorepath   = '/srv/vmail/',
+  $sqlconftemplate = 'dovecot/dovecot-sql.conf.ext',
 ) {
   file { "/etc/dovecot/dovecot-sql.conf.ext":
     ensure  => present,
@@ -17,7 +17,7 @@ class dovecot::postgres (
     group   => dovecot,
     require => Package['dovecot-pgsql'],
     before  => Exec['dovecot'],
-    notify => Service['dovecot'],
+    notify  => Service['dovecot'],
   }
 
   package {'dovecot-pgsql':
@@ -32,6 +32,6 @@ class dovecot::postgres (
       "set include 'auth-sql.conf.ext'",
       "rm  include[ . = 'auth-system.conf.ext']",
     ],
-    require => File["/etc/dovecot/dovecot-sql.conf.ext"]
+    require     => File["/etc/dovecot/dovecot-sql.conf.ext"]
   }
 }
