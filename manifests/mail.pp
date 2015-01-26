@@ -22,12 +22,17 @@ class dovecot::mail (
   $mbox_write_locks        = 'dotlock fcntl',
   $mail_nfs_storage        = 'no',
   $mail_nfs_index          = 'no',
-  $mmap_disable            = 'no'
+  $mmap_disable            = 'no',
+  $mail_fsync              = 'optimized'
 ) {
   include dovecot
 
   if ( $mail_nfs_index == 'yes' and $mmap_disable != 'yes' ) {
     fail('mail_nfs_index=yes requires mmap_disable=yes')
+  }
+
+  if ( $mail_nfs_index == 'yes' and $mail_fsync != 'always' ) {
+    fail('mail_nfs_index=yes requires mail_fsync=always')
   }
 
   dovecot::config::dovecotcfmulti { 'mail':
@@ -47,6 +52,7 @@ class dovecot::mail (
       "set mail_nfs_storage '${mail_nfs_storage}'",
       "set mail_nfs_index '${mail_nfs_index}'",
       "set mmap_disable '${mmap_disable}'",
+      "set mail_fsync '${mail_fsync}'",
     ],
   }
   if $manage_mailboxfile {
