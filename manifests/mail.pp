@@ -17,6 +17,7 @@ class dovecot::mail (
   # Set mailplugins to undef in the calling class
   # if no plugins are being used.
   $mailplugins             = 'quota',
+  $lock_method             = 'fcntl',
   $mbox_read_locks         = 'fcntl',
   $mbox_write_locks        = 'dotlock fcntl'
 ) {
@@ -33,6 +34,7 @@ class dovecot::mail (
       "set first_valid_gid ${first_valid_gid}",
       "set last_valid_gid ${last_valid_gid}",
       "set mail_plugins '${$mailplugins}'",
+      "set lock_method '${lock_method}'",
       "set mbox_read_locks '${mbox_read_locks}'",
       "set mbox_write_locks '${mbox_write_locks}'",
     ],
