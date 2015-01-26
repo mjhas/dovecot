@@ -19,7 +19,9 @@ class dovecot::mail (
   $mailplugins             = 'quota',
   $lock_method             = 'fcntl',
   $mbox_read_locks         = 'fcntl',
-  $mbox_write_locks        = 'dotlock fcntl'
+  $mbox_write_locks        = 'dotlock fcntl',
+  $mail_nfs_storage        = 'no',
+  $mail_nfs_index          = 'no'
 ) {
   include dovecot
 
@@ -37,6 +39,8 @@ class dovecot::mail (
       "set lock_method '${lock_method}'",
       "set mbox_read_locks '${mbox_read_locks}'",
       "set mbox_write_locks '${mbox_write_locks}'",
+      "set mail_nfs_storage '${mail_nfs_storage}'",
+      "set mail_nfs_index '${mail_nfs_index}'",
     ],
   }
   if $manage_mailboxfile {
