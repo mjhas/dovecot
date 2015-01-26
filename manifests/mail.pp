@@ -35,7 +35,7 @@ class dovecot::mail (
       "set last_valid_uid  ${last_valid_uid}",
       "set first_valid_gid ${first_valid_gid}",
       "set last_valid_gid ${last_valid_gid}",
-      "set mail_plugins '${$mailplugins}'",
+      "set mail_plugins '${mailplugins}'",
       "set lock_method '${lock_method}'",
       "set mbox_read_locks '${mbox_read_locks}'",
       "set mbox_write_locks '${mbox_write_locks}'",
