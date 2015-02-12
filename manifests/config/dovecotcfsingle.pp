@@ -1,3 +1,4 @@
+# one single dovecot config file change
 define dovecot::config::dovecotcfsingle(
   $ensure = present,
   $config_file='dovecot.conf',
@@ -30,4 +31,3 @@ define dovecot::config::dovecotcfsingle(
     }
   }
 }
-

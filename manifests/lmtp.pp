@@ -1,3 +1,4 @@
+# 20-lmtp.conf
 class dovecot::lmtp (
   $mail_plugins       = '$mail_plugins',
   $postmaster_address = "root@${::fqdn}",

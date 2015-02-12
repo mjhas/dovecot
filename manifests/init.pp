@@ -1,4 +1,7 @@
-class dovecot {
+# dovecot class
+class dovecot(
+  $package_configfiles  = 'keep'
+) {
 
   $mailpackages = $::osfamily ? {
     default  => ['dovecot-imapd', 'dovecot-pop3d'],
@@ -6,7 +9,7 @@ class dovecot {
     'Redhat' => ['dovecot',]
   }
 
-  ensure_packages([$mailpackages])
+  ensure_packages([$mailpackages], { 'configfiles' => $package_configfiles })
 
   exec { 'dovecot':
     command     => 'echo "dovecot packages are installed"',

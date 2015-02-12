@@ -1,3 +1,4 @@
+# 20-managesieve.conf
 class dovecot::managesieved {
 
   include dovecot

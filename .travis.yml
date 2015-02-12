@@ -1,6 +1,6 @@
 install:
   - sudo apt-get update
-  - sudo apt-get install puppet libxml2-dev libreadline-dev augeas-lenses libaugeas-dev 
+  - sudo apt-get install puppet libxml2-dev libreadline-dev augeas-lenses libaugeas-dev
   - sudo cp -R $TRAVIS_BUILD_DIR/spec/fixtures/augeas/etc/dovecot /etc/
   - sudo cp $TRAVIS_BUILD_DIR/spec/fixtures/augeas/etc/init.d/dovecot /etc/init.d/
   - sudo cp files/* /usr/share/augeas/lenses/dist/

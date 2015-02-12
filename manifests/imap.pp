@@ -1,3 +1,4 @@
+# 20-imap.conf
 class dovecot::imap (
   $mail_plugins                = '$mail_plugins imap_quota',
   $mail_max_userip_connections = 3,
