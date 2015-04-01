@@ -14,16 +14,18 @@ class dovecot::sieve (
     require => Package['dovecot-sieve'],
   }
 
-  $package_name = $::osfamily ? {
-    'Debian' => 'dovecot-sieve',
-    'Redhat' => 'dovecot-pigeonhole',
-    default  => 'dovecot-sieve',
+  case ${::osfamily} {
+    'Debian': {
+      $package_name = 'dovecot-sieve'
+      $mailpackages = ['dovecot-imapd', 'dovecot-pop3d']
+    }
+    'Redhat': {
+      $package_name = 'dovecot-pigeonhole'
+      $mailpackages = ['dovecot']
+    }
+    default:  { fail('Operating System not supported')}
   }
-  $mailpackages = $::osfamily ? {
-    default  => ['dovecot-imapd', 'dovecot-pop3d'],
-    'Debian' => ['dovecot-imapd', 'dovecot-pop3d'],
-    'Redhat' => ['dovecot',]
-  }
+
 
   package { $package_name :
       ensure  => installed,

@@ -1,12 +1,11 @@
 # dovecot class
-class dovecot(
+class dovecot (
   $package_configfiles  = 'keep'
 ) {
-
-  $mailpackages = $::osfamily ? {
-    default  => ['dovecot-imapd', 'dovecot-pop3d'],
-    'Debian' => ['dovecot-imapd', 'dovecot-pop3d'],
-    'Redhat' => ['dovecot',]
+  case ${::osfamily} {
+    'Debian': { $mailpackages = ['dovecot-imapd', 'dovecot-pop3d'] }
+    'Redhat': { $mailpackages = ['dovecot'] }
+    default:  { fail('Operating System not supported')}
   }
 
   ensure_packages([$mailpackages], { 'configfiles' => $package_configfiles })

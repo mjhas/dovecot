@@ -10,10 +10,10 @@ class dovecot::lmtp (
   # See the [Dovecot wiki](http://wiki2.dovecot.org/HowTo/PostfixDovecotLMTP) for more information.
   # This setup is targeted toward use with Postfix via a unix socket.
 
-  $package_name = $::osfamily ? {
-    'Debian' => 'dovecot-lmtpd',
-    'Redhat' => 'dovecot',
-    default  => 'dovecot-lmtpd',
+  case ${::osfamily} {
+    'Debian': { $package_name = 'dovecot-lmtpd'}
+    'Redhat': { $package_name = 'dovecot'}
+    default: { fail('Operating System not supported')}
   }
 
   package { $package_name:
