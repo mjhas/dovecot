@@ -1,5 +1,6 @@
 # 10-logging.conf
 class dovecot::logging (
+  $log_path             = 'syslog'
   $auth_verbose         = 'no',
   $auth_debug           = 'no',
   $auth_debug_passwords = 'no',
@@ -8,6 +9,11 @@ class dovecot::logging (
   $log_timestamp        = '%b %d %H:%M:%S ',
 ) {
   include dovecot
+
+  dovecot::config::dovecotcfsingle { 'log_path':
+    config_file => 'conf.d/10-logging.conf',
+    value       => "\"${log_path}\"",
+  }
 
   dovecot::config::dovecotcfsingle { 'auth_verbose':
     config_file => 'conf.d/10-logging.conf',
@@ -40,4 +46,5 @@ class dovecot::logging (
       value       => "\"${log_timestamp}\"",
     }
   }
+
 }
