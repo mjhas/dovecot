@@ -18,3 +18,5 @@ tmp
 _yardoc
 doc/
 Gemfile.lock
+spec/fixtures/
+.idea/
