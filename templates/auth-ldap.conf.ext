@@ -30,7 +30,7 @@ userdb {
   #args = uid=vmail gid=vmail home=/srv/vmail/%d/%n mail=maildir:~/mail
   # not using domain in mail home b/c domain is stripped by "auth_username_format = %Ln" and 
   # we don't know how to look up username in ldap
-  args = uid=vmail gid=vmail home=/srv/vmail/%n mail=maildir:~/mail
+  args = uid=<%= scope.lookupvar('dovecot::mail::username') %> gid=<%= scope.lookupvar('dovecot::mail::groupname') %> home=<%= scope.lookupvar('dovecot::mail::userhome') %> mail=<%= scope.lookupvar('dovecot::mail::mailstoretype') %>:<%= scope.lookupvar('dovecot::mail::mailstorepath') %>
 }
 #userdb {
 #  driver = prefetch

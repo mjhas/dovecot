@@ -23,6 +23,8 @@ class dovecot::ldap (
   $tls_require_cert      = 'demand',
   ) {
 
+  require dovecot::mail
+
   # TODO the next two files use same template, probably should be creating symlink....
   file { '/etc/dovecot/dovecot-ldap.conf.ext':
     ensure  => present,
