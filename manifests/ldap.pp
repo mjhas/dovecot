@@ -13,7 +13,14 @@ class dovecot::ldap (
   $ldap_pass_filter      = '(&(objectClass=user)(cn=%n))',
   $ldap_pass_attrs       = 'cn=user', #cn is ldap attribute name, user is dovecot field
   $ldap_iterate_attrs    = 'cn=user',
-  $ldap_iterate_filter   = '(objectClass=user)'
+  $ldap_iterate_filter   = '(objectClass=user)',
+  $ldap_tls              = 'no',
+  $tls_ca_cert_file      = undef,
+  $tls_ca_cert_dir       = undef,
+  $tls_cipher_suite      = undef,
+  $tls_cert_file         = undef,
+  $tls_key_file          = undef,
+  $tls_require_cert      = 'demand',
   ) {
 
   # TODO the next two files use same template, probably should be creating symlink....
