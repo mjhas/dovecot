@@ -145,7 +145,11 @@ user_attrs = <%= @ldap_user_attrs %>
 #   %u - username
 #   %n - user part in user@domain, same as %u if there's no domain
 #   %d - domain part in user@domain, empty if user there's no domain
+<%- if @ldap_user_filter -%>
 user_filter = <%= @ldap_user_filter %>
+<%- else -%>
+#user_filter =
+<%- end -%>
 
 # Password checking attributes:
 #  user: Virtual user name (user@domain), if you wish to change the
@@ -153,7 +157,11 @@ user_filter = <%= @ldap_user_filter %>
 #  password: Password, may optionally start with {type}, eg. {crypt}
 # There are also other special fields which can be returned, see
 # http://wiki2.dovecot.org/PasswordDatabase/ExtraFields
+<%- if @ldap_pass_attrs -%>
 pass_attrs = <%= @ldap_pass_attrs %>
+<%- else -%>
+#pass_attrs =
+<%- end -%>
 
 # If you wish to avoid two LDAP lookups (passdb + userdb), you can use
 # userdb prefetch instead of userdb ldap in dovecot.conf. In that case you'll
@@ -163,11 +171,23 @@ pass_attrs = <%= @ldap_pass_attrs %>
 #  homeDirectory=userdb_home,uidNumber=userdb_uid,gidNumber=userdb_gid
 
 # Filter for password lookups
+<%- if @ldap_pass_filter -%>
 pass_filter = <%= @ldap_pass_filter %>
+<%- else -%>
+#pass_filter =
+<%- end -%>
 
 # Attributes and filter to get a list of all users
+<%- if @ldap_iterate_attrs -%>
 iterate_attrs = <%= @ldap_iterate_attrs %>
+<%- else -%>
+#iterate_attrs =
+<%- end -%>
+<%- if @ldap_iterate_filter -%>
 iterate_filter = <%= @ldap_iterate_filter %>
+<%- else -%>
+#iterate_filter =
+<%- end -%>
 
 # Default password scheme. "{scheme}" before password overrides this.
 # List of supported schemes is in: http://wiki2.dovecot.org/Authentication
