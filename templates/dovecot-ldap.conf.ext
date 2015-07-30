@@ -14,11 +14,19 @@
 #        by * none
 
 # Space separated list of LDAP hosts to use. host:port is allowed too.
+<%- if @ldap_hosts -%>
 hosts = <%= @ldap_hosts %>
+<%- else -%>
+#hosts =
+<%- end -%>
 
 # LDAP URIs to use. You can use this instead of hosts list. Note that this
 # setting isn't supported by all LDAP libraries.
-#uris = 
+<%- if @ldap_uris -%>
+uris = <%= @ldap_uris %>
+<%- else -%>
+#uris =
+<%- end -%>
 
 # Distinguished Name - the username used to login to the LDAP server.
 # Leave it commented out to bind anonymously (useful with auth_bind=yes).
@@ -40,15 +48,20 @@ dnpass = <%= @ldap_dnpass %>
 #sasl_authz_id =
 
 # Use TLS to connect to the LDAP server.
+<%- if @ldap_tls and @ldap_host -%>
 tls = <%= @ldap_tls %>
+<%- else -%>
+#Deactivate tls when using uris = ldaps://
+#tls =
+<%- end -%>
 # TLS options, currently supported only with OpenLDAP:
-<%- if @ldap_tls == 'yes' then%>
-  <%- if @ldap_tls_ca_cert_file %>tls_ca_cert_file = <%= @ldap_tls_ca_cert_file %><% end -%>
-  <%- if @ldap_tls_ca_cert_dir %>tls_ca_cert_dir = <%= @ldap_tls_ca_cert_dir %><% end -%>
-  <%- if @ldap_tls_cipher_suite %>tls_cipher_suite = <%= @ldap_tls_cipher_suite %><% end -%>
+<%- if @ldap_tls == 'yes' -%>
+  <%- if @ldap_tls_ca_cert_file %>tls_ca_cert_file = <%= @ldap_tls_ca_cert_file %><% end %>
+  <%- if @ldap_tls_ca_cert_dir %>tls_ca_cert_dir = <%= @ldap_tls_ca_cert_dir %><% end %>
+  <%- if @ldap_tls_cipher_suite %>tls_cipher_suite = <%= @ldap_tls_cipher_suite %><% end %>
 # TLS cert/key is used only if LDAP server requires a client certificate.
-  <%- if @ldap_tls_cert_file %>tls_cert_file = <%= @ldap_tls_cert_file %><% end -%>
-  <%- if @ldap_tls_key_file %>tls_key_file = <%= @ldap_tls_key_file %><% end -%>
+  <%- if @ldap_tls_cert_file %>tls_cert_file = <%= @ldap_tls_cert_file %><% end %>
+  <%- if @ldap_tls_key_file %>tls_key_file = <%= @ldap_tls_key_file %><% end %>
 # Valid values: never, hard, demand, allow, try
 tls_require_cert = <%= @ldap_tls_require_cert %>
 <% else -%>

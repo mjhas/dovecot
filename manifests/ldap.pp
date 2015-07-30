@@ -2,6 +2,7 @@
 # auth-ldap.conf.ext
 class dovecot::ldap (
   $ldap_hosts            = 'ldap.example.org:389',
+  $ldap_uris             = false,
   $ldap_dn               = 'cn=vmail,cn=users,dc=example,dc=org',
   $ldap_dnpass           = 'NotPassword#1234!',
   $ldap_auth_bind_userdn = 'cn=%n,cn=users,dc=example,dc=org',
@@ -15,15 +16,23 @@ class dovecot::ldap (
   $ldap_iterate_attrs    = 'cn=user',
   $ldap_iterate_filter   = '(objectClass=user)',
   $ldap_tls              = 'no',
-  $tls_ca_cert_file      = undef,
-  $tls_ca_cert_dir       = undef,
-  $tls_cipher_suite      = undef,
-  $tls_cert_file         = undef,
-  $tls_key_file          = undef,
-  $tls_require_cert      = 'demand',
+  $ldap_tls_ca_cert_file = false,
+  $ldap_tls_ca_cert_dir  = false,
+  $ldap_tls_cipher_suite = false,
+  $ldap_tls_cert_file    = false,
+  $ldap_tls_key_file     = false,
+  $ldap_tls_require_cert = 'demand',
   ) {
 
-  require dovecot::mail
+  if $ldap_uris and $ldap_hosts {
+    fail('uris and hosts are mutually exclusives')
+  }
+
+  package {'dovecot-ldap':
+    ensure => installed,
+    before => Exec['dovecot'],
+    notify => Service['dovecot']
+  }
 
   # TODO the next two files use same template, probably should be creating symlink....
   file { '/etc/dovecot/dovecot-ldap.conf.ext':
