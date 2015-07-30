@@ -10,7 +10,9 @@ class dovecot::ldap (
   $ldap_auth_bind        = 'no',
   $ldap_scope            = 'subtree',
   $ldap_debug_level      = '-1',
+  $ldap_userdb_static    = 'uid=vmail gid=vmail home=/srv/vmail/%n mail=maildir:~/mail',
   $ldap_user_filter      = '(&(objectClass=user)(cn=%n))',
+  $ldap_user_attrs       = '=home=/srv/vmail/%d/%n, =uid=vmail, =gid=vmail, =mail=maildir:~/mail',
   $ldap_pass_filter      = '(&(objectClass=user)(cn=%n))',
   $ldap_pass_attrs       = 'cn=user', #cn is ldap attribute name, user is dovecot field
   $ldap_iterate_attrs    = 'cn=user',
