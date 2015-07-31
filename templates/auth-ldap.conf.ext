@@ -25,13 +25,17 @@ passdb {
 # lookup by using userdb static instead of userdb ldap, for example:
 # <doc/wiki/UserDatabase.Static.txt>
 #these values for home and mail override mail_home and mail_location
+<%- if @ldap_userdb_static -%>
 userdb {
   driver = static
-  #args = uid=vmail gid=vmail home=/srv/vmail/%d/%n mail=maildir:~/mail
-  # not using domain in mail home b/c domain is stripped by "auth_username_format = %Ln" and 
-  # we don't know how to look up username in ldap
-  args = uid=vmail gid=vmail home=/srv/vmail/%n mail=maildir:~/mail
+  args = <%= @ldap_userdb_static %>
 }
+<%- else -%>
+#userdb {
+#  driver = static
+#  args =
+#}
+<%- end -%>
 #userdb {
 #  driver = prefetch
 #}
