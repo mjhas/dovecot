@@ -1,17 +1,16 @@
 # 10-auth.conf
 # dovecot-sql.conf.ext
-class dovecot::postgres (
+class dovecot::mysql (
   $dbname          = 'mails',
   $dbpassword      = 'admin',
   $dbusername      = 'pass',
   $dbhost          = 'localhost',
   $dbport          = 5432,
-  $dbdriver        = 'pgsql',
-  $mailstorepath   = '/srv/vmail/',
-  $pass_scheme     = 'CRYPT',
+  $dbdriver        = 'mysql',
+  $pass_scheme     = 'MD5-CRYPT',
   $sqlconftemplate = 'dovecot/dovecot-sql.conf.ext',
-  $user_query      = "SELECT '<%= @mailstorepath %>'||SUBSTRING(email from (position('@' in email)+1) for (char_length(email)-position('@' in email)+1)) || '/' || SUBSTRING(email from 0 for position('@' in email)) AS home, '*:bytes='||quota AS quota_rule FROM users WHERE email = '%u'",
-  $pass_query      = "SELECT '<%= @mailstorepath %>'||SUBSTRING(email from (position('@' in email)+1) for (char_length(email)-position('@' in email)+1)) || '/' || SUBSTRING(email from 0 for position('@' in email)) AS userdb_home, email AS user, password, '*:bytes='||quota AS userdb_quota_rule FROM users WHERE email = '%u'"
+  $user_query      = "SELECT maildir, 5000 AS uid, 5000 AS gid FROM mailbox WHERE username  = '%u'",
+  $pass_query      = "SELECT password FROM mailbox WHERE username = '%u'"
 ) {
   file { "/etc/dovecot/dovecot-sql.conf.ext":
     ensure  => present,
@@ -19,12 +18,12 @@ class dovecot::postgres (
     mode    => '0600',
     owner   => root,
     group   => dovecot,
-    require => Package['dovecot-pgsql'],
+    require => Package['dovecot-mysql'],
     before  => Exec['dovecot'],
     notify  => Service['dovecot'],
   }
 
-  package {'dovecot-pgsql':
+  package {'dovecot-mysql':
     ensure => installed,
     before => Exec['dovecot'],
     notify => Service['dovecot']

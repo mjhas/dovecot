@@ -1,10 +1,5 @@
-driver = pgsql
+driver = <%= @dbdriver %>
 connect = host=<%= @dbhost %> port=<%= @dbport %> dbname=<%= @dbname %> user=<%= @dbusername %> password=<%= @dbpassword %>
-default_pass_scheme = CRYPT
-user_query = \
-    SELECT '<%= @mailstorepath %>'||SUBSTRING(email from (position('@' in email)+1) for (char_length(email)-position('@' in email)+1)) || '/' || SUBSTRING(email from 0 for position('@' in email)) AS home, '*:bytes='||quota AS quota_rule \
-    FROM users WHERE email = '%u' 
-password_query = \
-    SELECT '<%= @mailstorepath %>'||SUBSTRING(email from (position('@' in email)+1) for (char_length(email)-position('@' in email)+1)) || '/' || SUBSTRING(email from 0 for position('@' in email)) AS userdb_home, \
-        email AS user, password, '*:bytes='||quota AS userdb_quota_rule \
-    FROM users WHERE email = '%u'
+default_pass_scheme = <%= @pass_scheme %>
+user_query = <%= @user_query %>
+password_query = <%= @pass_query %>
