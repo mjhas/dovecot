@@ -4,7 +4,6 @@ define dovecot::config::dovecotcfsingle(
   $config_file='dovecot.conf',
   $value=undef,
 ) {
-  require dovecot::config::augeas
   Augeas {
     context => "/files/etc/dovecot/${config_file}",
     notify  => Service['dovecot'],
