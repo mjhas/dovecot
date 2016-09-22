@@ -1,11 +1,12 @@
 # dovecot class
 class dovecot(
+  $packages             = undef,
   $package_configfiles  = 'keep'
 ) {
 
   $mailpackages = $::osfamily ? {
-    default  => ['dovecot-imapd', 'dovecot-pop3d'],
-    'Debian' => ['dovecot-imapd', 'dovecot-pop3d'],
+    default  => ['dovecot-core'],
+    'Debian' => ['dovecot-core'],
     'Redhat' => ['dovecot',]
   }
 
@@ -22,6 +23,6 @@ class dovecot(
   service { 'dovecot':
     ensure  => running,
     require => Exec['dovecot'],
-    enable  => true
+    enable  => true,
   }
 }
