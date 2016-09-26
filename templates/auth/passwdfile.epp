@@ -1,0 +1,32 @@
+<%- | String $scheme,
+      String $username_format,
+      String $user_file,
+      Optional[String] $default_fields = undef,
+      Optional[String] $override_fields = undef,
+      | -%>
+# Authentication for passwd-file users. Included from 10-auth.conf.
+#
+# passwd-like file with specified location.
+# <doc/wiki/AuthDatabase.PasswdFile.txt>
+
+passdb {
+  driver = passwd-file
+  args = scheme=<%= $scheme %> username_format=<%= $username_format %> <%= $user_file %>
+}
+
+userdb {
+  driver = passwd-file
+  args = username_format=<%= $username_format %> <%= $user_file %>
+
+  # Default fields that can be overridden by passwd-file
+  #default_fields = quota_rule=*:storage=1G
+  <%- unless $default_fields =~ Undef { -%>
+  default_fields = <%= $default_fields %>
+  <%- } -%>
+
+  # Override fields from passwd-file
+  #override_fields = home=/home/virtual/%u
+  <%- unless $override_fields =~ Undef { -%>
+  override_fields = <%= $override_fields %>
+  <%- } -%>
+}
