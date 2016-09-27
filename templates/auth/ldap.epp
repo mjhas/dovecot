@@ -4,6 +4,7 @@
   String $path = '/etc/dovecot/dovecot-ldap.conf.ext',
   Optional[String] $default_pass_scheme = undef,
   Optional[String] $default_fields = undef,
+  Optional[String] $static_args = undef,
 | -%>
 # Authentication for LDAP users. Included from 10-auth.conf.
 #
