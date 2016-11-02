@@ -1,4 +1,5 @@
 <%- |
+  Boolean passdb = true,
   Boolean $static = false,
   Boolean $prefetch = false,
   String $path = '/etc/dovecot/dovecot-ldap.conf.ext',
@@ -10,12 +11,14 @@
 #
 # <doc/wiki/AuthDatabase.LDAP.txt>
 
+<%- if $passdb { -%>
 passdb {
   driver = ldap
 
   # Path for LDAP configuration file, see example-config/dovecot-ldap.conf.ext
   args = <%= $path %>
 }
+<%- } -%>
 
 # "prefetch" user database means that the passdb already provided the
 # needed information and there's no need to do a separate userdb lookup.
