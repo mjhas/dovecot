@@ -1,4 +1,5 @@
 <%- |
+  Boolean $passdb = true,
   Boolean $static = false,
   Boolean $prefetch = false,
   String $path = '/etc/dovecot/dovecot-ldap.conf.ext',
@@ -10,12 +11,14 @@
 #
 # <doc/wiki/AuthDatabase.LDAP.txt>
 
+<%- if $passdb { -%>
 passdb {
   driver = ldap
 
   # Path for LDAP configuration file, see example-config/dovecot-ldap.conf.ext
   args = <%= $path %>
 }
+<%- } -%>
 
 # "prefetch" user database means that the passdb already provided the
 # needed information and there's no need to do a separate userdb lookup.
@@ -32,7 +35,7 @@ userdb {
 <%- if !$static { -%>
 userdb {
   driver = ldap
-  args = /etc/dovecot/dovecot-ldap.conf.ext
+  args = <%= $path %>
   
   # Default fields can be used to specify defaults that LDAP may override
   #default_fields = home=/home/virtual/%u
@@ -51,6 +54,9 @@ userdb {
   #args = uid=vmail gid=vmail home=/var/vmail/%u
   <%- if $static_args { -%>
   args = <%= $static_args %>
+  <%- } -%>
+  <%- if $default_fields { -%>
+  default_fields = <%= $default_fields %>
   <%- } -%>
 }
 <%- } -%>

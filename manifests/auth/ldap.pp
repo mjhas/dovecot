@@ -43,6 +43,7 @@ define dovecot::auth::ldap (
 ) {
   ensure_packages('dovecot-ldap')
 
+  $passdb_enabled = $pass_attrs or $pass_filter
   file {"/etc/dovecot/conf.d/${name}":
     ensure  => $ensure,
     owner   => 'root',
@@ -50,11 +51,13 @@ define dovecot::auth::ldap (
     mode    => '0644',
     notify  => Service['dovecot'],
     content => epp('dovecot/auth/ldap.epp', {
+        passdb              => $passdb_enabled,
         static              => $static,
         prefetch            => $prefetch,
         path                => $path,
         default_pass_scheme => $default_pass_scheme,
         static_args         => $static_args,
+        default_fields      => $default_fields,
     } ),
   }
 
