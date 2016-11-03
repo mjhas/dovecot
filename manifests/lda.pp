@@ -1,14 +1,13 @@
 # 15-lda.conf
+# See README.md for usage
 class dovecot::lda (
-  $postmaster_address = "root@${::fqdn}",
+  Hash[String,Optional[Variant[String,Integer]]] $options = {},
+  Optional[String] $mail_plugins                          = undef,
 ) {
-  include dovecot
+  include ::dovecot
 
-  dovecot::config::dovecotcfmulti { 'lda':
+  dovecot::config::dovecotcfhash {'lda':
     config_file => 'conf.d/15-lda.conf',
-    changes     => [
-      "set postmaster_address '${postmaster_address}'",
-      "set protocol[ . = 'lda']/mail_plugins '\$mail_plugins'",
-    ],
+    options     => merge( $options, { 'protocol/mail_plugins' => $mail_plugins } ),
   }
 }

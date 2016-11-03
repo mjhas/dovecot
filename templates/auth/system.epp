@@ -1,0 +1,31 @@
+<%- | Array[Hash] $passdb,
+      Array[Hash] $userdb,
+| -%>
+# Authentication for system users. Included from 10-auth.conf.
+#
+# <doc/wiki/PasswordDatabase.txt>
+# <doc/wiki/UserDatabase.txt>
+#
+# PAM authentication. Preferred nowadays by most systems.
+# PAM is typically used with either userdb passwd or userdb static.
+# REMEMBER: You'll need /etc/pam.d/dovecot file created for PAM
+# authentication to actually work. <doc/wiki/PasswordDatabase.PAM.txt>
+#
+
+<%- $passdb.each |$v| { -%>
+passdb {
+  driver = <%= $v['driver'] %>
+  <%- if $v['args'] { -%>
+  args = <%= $v['args'] %>
+  <%- } -%>
+}
+<%- } -%>
+
+<%- $userdb.each |$k, $v| { -%>
+userdb {
+  driver = <%= $v['driver'] %>
+  <%- if $v['args'] { -%>
+  args = <%= $v['args'] %>
+  <%- } -%>
+}
+<%- } -%>

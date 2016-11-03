@@ -1,10 +1,10 @@
 # one single dovecot config file change
 define dovecot::config::dovecotcfsingle(
-  $ensure = present,
-  $config_file='dovecot.conf',
-  $value=undef,
+  $ensure      = present,
+  $config_file = 'dovecot.conf',
+  $option      = $name,
+  $value       = undef,
 ) {
-  require dovecot::config::augeas
   Augeas {
     context => "/files/etc/dovecot/${config_file}",
     notify  => Service['dovecot'],
@@ -14,16 +14,16 @@ define dovecot::config::dovecotcfsingle(
   case $ensure {
     present: {
       if !$value {
-        fail("dovecot /etc/dovecot/${config_file} ${name} value not set")
+        fail("dovecot /etc/dovecot/${config_file} ${option} value not set")
       }
-      augeas { "dovecot /etc/dovecot/${config_file} ${name}":
-        changes => "set ${name} '${value}'",
+      augeas { "dovecot /etc/dovecot/${config_file} ${option}":
+        changes => "set ${option} '${value}'",
       }
     }
 
     absent: {
-      augeas { "dovecot /etc/dovecot/${config_file} ${name}":
-        changes => "rm ${name}",
+      augeas { "dovecot /etc/dovecot/${config_file} ${option}":
+        changes => "rm ${option}",
       }
     }
     default : {

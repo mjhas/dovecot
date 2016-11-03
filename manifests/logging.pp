@@ -1,43 +1,18 @@
 # 10-logging.conf
+# See README.md for usage
 class dovecot::logging (
-  $auth_verbose         = 'no',
-  $auth_debug           = 'no',
-  $auth_debug_passwords = 'no',
-  $mail_debug           = 'no',
-  $verbose_ssl          = 'no',
-  $log_timestamp        = '%b %d %H:%M:%S ',
+  Hash[String, Optional[String]] $options = {},
+  Hash[String, Optional[String]] $plugins = {}
 ) {
-  include dovecot
+  include ::dovecot
 
-  dovecot::config::dovecotcfsingle { 'auth_verbose':
+  dovecot::config::dovecotcfhash {'logging':
     config_file => 'conf.d/10-logging.conf',
-    value       => $auth_verbose,
+    options     => $options,
   }
 
-  dovecot::config::dovecotcfsingle { 'auth_debug':
+  dovecot::config::dovecotcfhash {'logging plugin':
     config_file => 'conf.d/10-logging.conf',
-    value       => $auth_debug,
-  }
-
-  dovecot::config::dovecotcfsingle { 'auth_debug_passwords':
-    config_file => 'conf.d/10-logging.conf',
-    value       => $auth_debug_passwords,
-  }
-
-  dovecot::config::dovecotcfsingle { 'mail_debug':
-    config_file => 'conf.d/10-logging.conf',
-    value       => $mail_debug,
-  }
-
-  dovecot::config::dovecotcfsingle { 'verbose_ssl':
-    config_file => 'conf.d/10-logging.conf',
-    value       => $verbose_ssl,
-  }
-
-  if $log_timestamp != false {
-    dovecot::config::dovecotcfsingle { 'log_timestamp':
-      config_file => 'conf.d/10-logging.conf',
-      value       => "\"${log_timestamp}\"",
-    }
+    options     => prefix($plugins, 'plugin/'),
   }
 }

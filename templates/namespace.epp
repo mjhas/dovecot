@@ -1,0 +1,131 @@
+<%- |
+  String $name,
+  Enum['present','absent'] $ensure                  = present,
+  Optional[Enum['private','shared','public']] $type = undef,
+  Optional[String] $separator                       = undef,
+  Optional[String] $prefix                          = undef,
+  Optional[String] $location                        = undef,
+  Enum['yes','no'] $inbox                           = 'no',
+  Optional[Enum['yes','no']] $hidden                = undef,
+  Optional[Enum['yes','no', 'children']] $list      = undef,
+  Optional[Enum['yes','no']] $subscriptions         = undef,
+  Hash $mailboxes                                   = {},
+  | -%>
+# You can have private, shared and public namespaces. Private namespaces
+# are for user's personal mails. Shared namespaces are for accessing other
+# users' mailboxes that have been shared. Public namespaces are for shared
+# mailboxes that are managed by sysadmin. If you create any shared or public
+# namespaces you'll typically want to enable ACL plugin also, otherwise all
+# users can access all the shared mailboxes, assuming they have permissions
+# on filesystem level to do so.
+namespace <%= $name %> {
+  # Namespace type: private, shared or public
+<%- if $type { -%>
+  type = <%= $type %>
+<%- } else { -%>
+  #type = private
+<%- } -%>
+ 
+
+  # Hierarchy separator to use. You should use the same separator for all
+  # namespaces or some clients get confused. '/' is usually a good one.
+  # The default however depends on the underlying mail storage format.
+<%- if $separator { -%>
+  separator = <%= $separator %>
+<%- } else { -%>
+  #separator = 
+<%- } -%>
+
+  # Prefix required to access this namespace. This needs to be different for
+  # all namespaces. For example "Public/".
+<%- if $prefix { -%>
+  prefix = <%= $prefix %>
+<%- } else { -%>
+  #prefix = 
+<%- } -%>
+
+  # Physical location of the mailbox. This is in same format as
+  # mail_location, which is also the default for it.
+<%- if $location { -%>
+  location = <%= $location %>
+<%- } else { -%>
+  #location =
+<%- } -%>
+
+  # There can be only one INBOX, and this setting defines which namespace
+  # has it.
+  inbox = <%= $inbox %>
+
+  # If namespace is hidden, it's not advertised to clients via NAMESPACE
+  # extension. You'll most likely also want to set list=no. This is mostly
+  # useful when converting from another server with different namespaces which
+  # you want to deprecate but still keep working. For example you can create
+  # hidden namespaces with prefixes "~/mail/", "~%u/mail/" and "mail/".
+<%- if $hidden { -%>
+  hidden = <%= $hidden %>
+<%- } else { -%>
+  #hidden = no
+<%- } -%>
+
+  # Show the mailboxes under this namespace with LIST command. This makes the
+  # namespace visible for clients that don't support NAMESPACE extension.
+  # "children" value lists child mailboxes, but hides the namespace prefix.
+<%- if $list { -%>
+  list = <%= $list %>
+<%- } else { -%>
+  #list = yes
+<%- } -%>
+
+  # Namespace handles its own subscriptions. If set to "no", the parent
+  # namespace handles them (empty prefix should always have this as "yes")
+<%- if $subscriptions { -%>
+  subscriptions = <%= $subscriptions %>
+<%- } else { -%>
+  #subscriptions = yes
+<%- } -%>
+
+  #
+  # auto:
+  #   Indicates whether the mailbox with this name is automatically created
+  #   implicitly when it is first accessed. The user can also be automatically
+  #   subscribed to the mailbox after creation. The following values are
+  #   defined for this setting:
+  # 
+  #     no        - Never created automatically.
+  #     create    - Automatically created, but no automatic subscription.
+  #     subscribe - Automatically created and subscribed.
+  #  
+  # special_use:
+  #   A space-separated list of SPECIAL-USE flags (RFC 6154) to use for the
+  #   mailbox. There are no validity checks, so you could specify anything
+  #   you want in here, but it's not a good idea to use flags other than the
+  #   standard ones specified in the RFC:
+  #
+  #     \All      - This (virtual) mailbox presents all messages in the
+  #                 user's message store. 
+  #     \Archive  - This mailbox is used to archive messages.
+  #     \Drafts   - This mailbox is used to hold draft messages.
+  #     \Flagged  - This (virtual) mailbox presents all messages in the
+  #                 user's message store marked with the IMAP \Flagged flag.
+  #     \Junk     - This mailbox is where messages deemed to be junk mail
+  #                 are held.
+  #     \Sent     - This mailbox is used to hold copies of messages that
+  #                 have been sent.
+  #     \Trash    - This mailbox is used to hold messages that have been
+  #                 deleted.
+  #
+  # comment:
+  #   Defines a default comment or note associated with the mailbox. This
+  #   value is accessible through the IMAP METADATA mailbox entries
+  #   "/shared/comment" and "/private/comment". Users with sufficient
+  #   privileges can override the default value for entries with a custom
+  #   value.
+
+<%- $mailboxes.each |String $key, Hash $opts| { -%>
+  mailbox <%= $key %> {
+  <%- $opts.each |String $opt, String $val| { -%>
+    <%= $opt %> = <%= $val %>
+  <%- } -%>
+  }
+<%- } -%>
+}
