@@ -57,6 +57,7 @@ define dovecot::auth::ldap (
         path                => $path,
         default_pass_scheme => $default_pass_scheme,
         static_args         => $static_args,
+        default_fields      => $default_fields,
     } ),
   }
 

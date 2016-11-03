@@ -1,5 +1,5 @@
 <%- |
-  Boolean passdb = true,
+  Boolean $passdb = true,
   Boolean $static = false,
   Boolean $prefetch = false,
   String $path = '/etc/dovecot/dovecot-ldap.conf.ext',
@@ -54,6 +54,9 @@ userdb {
   #args = uid=vmail gid=vmail home=/var/vmail/%u
   <%- if $static_args { -%>
   args = <%= $static_args %>
+  <%- } -%>
+  <%- if $default_fields { -%>
+  default_fields = <%= $default_fields %>
   <%- } -%>
 }
 <%- } -%>
